@@ -1,14 +1,15 @@
+@use '../../node_modules/bootstrap-icons/font/bootstrap-icons.scss';
 
-
-@use './_variables' as *;
+@use './_gb-variables' as *;
 
 
 @use '../../node_modules/bootstrap/scss/bootstrap' as * with (
-     // change default font
-     $font-family-sans-serif: $general-font,
+    // change default font
+    $font-family-sans-serif: $general-font,
 
-     // increase navbar padding
-    //  $navbar-padding-y: 2rem,
+    // set dropdown link hover bg color
+    $dropdown-link-hover-bg: $custom-warning,
+
  
      // override default theme colors
      $theme-colors: (
