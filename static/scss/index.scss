@@ -1,0 +1,38 @@
+
+
+@use './_variables' as *;
+
+
+@use '../../node_modules/bootstrap/scss/bootstrap' as * with (
+     // change default font
+     $font-family-sans-serif: $general-font,
+
+     // increase navbar padding
+    //  $navbar-padding-y: 2rem,
+ 
+     // override default theme colors
+     $theme-colors: (
+         "primary-light": $custom-primary-light,
+               "primary": $custom-primary,
+          "primary-dark": $custom-primary-dark,
+             "secondary": $custom-secondary, 
+               "success": $custom-success,
+                  "info": $custom-info,
+               "warning": $custom-warning,
+                "danger": $custom-danger,
+                 "light": $custom-light,
+           "light-light": $custom-light-light,
+           "light-dark" : $custom-light-dark,
+                  "dark": $custom-dark,
+     ),
+ 
+);
+
+h1, h2, h3, h4, h5,
+.display-1,.display-2,.display-3,.display-4,.display-5 {
+    font-family: $header-font;
+}
+
+.navbar-logo {
+    height: 50px;
+}

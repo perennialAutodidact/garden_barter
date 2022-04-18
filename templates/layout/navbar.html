@@ -1,0 +1,35 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+
+        <!-- LOGO -->
+        <a class="navbar-brand d-flex flex-column align-items-center" href="#">
+            <img src="{% static 'images/garden_barter_logo.svg' %}" class="navbar-logo px-3" alt="Garden Barter Logo">
+            <h5 class="text-success">Garden Barter</h5>
+        </a>
+
+        <!-- HAMBURGER -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- NAV LINKS -->
+        <div class="collapse navbar-collapse d-lg-flex justify-content-end" id="navbarNav">
+            <ul class="navbar-nav ps-3 ps-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Create Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Account</a>
+                </li>
+
+            </ul>
+        </div>
+        
+    </div>
+</nav>
