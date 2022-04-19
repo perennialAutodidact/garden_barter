@@ -1,4 +1,5 @@
 from pathlib import Path
+from corsheaders.defaults import default_headers
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,6 +21,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework',
+    'corsheaders',
 
     'pages_app',
     'users_app',
@@ -111,3 +115,73 @@ STATICFILES_DIRS = [str(BASE_DIR/'static')]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users_app.User'
+
+
+# define default authentication method in DRF
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'users_app.authentication.SafeJWTAuthentication'
+    ],
+
+    'DEFAULT_RENDERER_CLASSES': (
+        'djangorestframework_camel_case.render.CamelCaseJSONRenderer',
+        'djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer',
+        # Any other renders
+    ),
+
+    'DEFAULT_PARSER_CLASSES': (
+        # If you use MultiPartFormParser or FormParser, we also have a camel case version
+        'djangorestframework_camel_case.parser.CamelCaseFormParser',
+        'djangorestframework_camel_case.parser.CamelCaseMultiPartParser',
+        'djangorestframework_camel_case.parser.CamelCaseJSONParser',
+        # Any other parsers
+    ),
+}
+
+# define refresh token lifetime
+REFRESH_TOKEN_EXPIRY = {
+    'days': 7,
+    'hours': 0,
+    'minutes': 0,
+    'seconds': 0
+}
+
+# define refresh token lifetime
+ACCESS_TOKEN_EXPIRY = {
+    'days': 0,
+    'hours': 10,
+    'minutes': 0,
+    'seconds': 10
+}
+
+# to accept cookies via axios
+CORS_ALLOW_CREDENTIALS = True
+
+CSRF_COOKIE_HTTPONLY = True
+SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_SAMESITE='None'
+CSRF_COOKIE_SECURE = True
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'http://localhost:8000',
+    # other allowed origins...
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:3000',
+    'http://localhost:8000',
+    # other allowed origins...
+]
+
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    # other allowed hosts...
+]
+
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    'refresh_token',
+    'withcredentials',
+    'access-control-allow-origin',
+]

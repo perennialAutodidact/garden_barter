@@ -1,3 +1,4 @@
+{% load widget_tweaks %}
 <div class="row py-5">
 
     <div class="col-10 offset-1 col-lg-4 offset-lg-4">
@@ -9,7 +10,19 @@
                     {% for field in form %}
                     <div class="field-group d-flex flex-column">
                         <label for="{{field.label}}" class="form-label">{{field.label}}</label>
-                        {{field}}
+                        {% if field.errors %}
+                            {% render_field field class+="form-control is-invalid" %}
+                            <div class="d-flex flex-column mt-2">
+                                {% for error in field.errors %}
+                                    <p class="m-0">
+                                        {{error}}
+                                    </p>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {% render_field field class+="form-control" %}
+                        {% endif %}
+                    
                     </div>
                     {% endfor %}
                     {% csrf_token %}
