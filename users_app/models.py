@@ -12,10 +12,12 @@ class UserManager(BaseUserManager):
 
     def _create_user(self, email, password, **extra_fields):
         """Create and save a User with the given email and password."""
+
         if not email:
             raise ValueError('The given email must be set')
         if not password:
             raise ValueError('Password cannot be blank')
+
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
@@ -53,8 +55,6 @@ class User(AbstractUser):
     # optional username
     username = models.CharField(max_length=30, null=True, blank=True)
 
-    member_id = models.UUIDField(editable=False, unique=True, default=uuid.uuid1)
-
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
@@ -69,61 +69,4 @@ class RefreshToken(models.Model):
 
     def __str__(self):
         return f"{self.user}'s refresh token"
-
-
-class Instructor(User):
-    class Meta:
-        verbose_name='Instructor'
-
-class TeachingAssistant(User):
-    
-    class Meta:
-        verbose_name='Teaching Assistant'
-
-
-FUNDING_TYPE_CHOICES = {
-    'selfpay': 'Self Pay',
-    'vettec': 'VETTEC',
-    'vrrap': 'VRRAP',
-    'gi_bill': 'G.I. Bill',
-    'voc_rehab': 'Vocational Rehab',
-    'ch_33': 'Chapter 33',
-    'worksource': 'Worksource',
-    'not_specified': "Not Specified"
-}
-
-class FundingType(models.Model):
-    title = models.CharField(max_length=20, choices=list(FUNDING_TYPE_CHOICES.items()))
-
-    def __str__(self):
-        return self.title
-
-ENROLLMENT_CHOICES = {
-    'PE': 'Pre-Enrollment',
-    'EN': 'Enrolled: Not Started',
-    'ES': 'Enrolled: Started',
-    'EG': 'Enrolled: Graduated',
-    'EP': 'Enrolled: Academic Probation',
-    'EE': 'Enrolled: Expelled',
-}
-
-class EnrollmentStatus(models.Model):
-
-    code = models.CharField(max_length=2, choices=list(ENROLLMENT_CHOICES.items()))
-
-    def __str__(self):
-        # Example output: EG - Enrolled: Graduated
-        return f"{self.code} - {ENROLLMENT_CHOICES.get(self.code)}"
-
-
-class Student(User):
-    funding_type = models.ForeignKey('FundingType', on_delete=models.SET_NULL, null=True, related_name='students')
-    enrollment_status = models.ForeignKey('EnrollmentStatus', on_delete=models.SET_NULL, null=True, related_name='students')
-    paid_in_full = models.BooleanField(default=False)
-    tuition_balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
-    class Meta:
-        verbose_name='Student'
-        
-    def __str__(self):
-        return self.email
 

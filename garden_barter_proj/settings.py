@@ -1,15 +1,19 @@
 from pathlib import Path
 from corsheaders.defaults import default_headers
+import decouple
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-SECRET_KEY = 'django-insecure-p4mbrl96pd@nxwsn7ytn_2wwp3m4ec3($s9tmrwc!6h%4ulytu'
+DEBUG = decouple.config('DJANGO_DEBUG')
 
-DEBUG = True
-
-ALLOWED_HOSTS = []
+# set SECRET_KEY based on value of DEBUG
+if DEBUG:
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = decouple.config('DJANGO_SECRET_KEY_DEVELOPMENT')
+else:
+    SECRET_KEY = decouple.config('DJANGO_SECRET_KEY_PRODUCTION')
 
 
 # Application definition
@@ -27,10 +31,11 @@ INSTALLED_APPS = [
 
     'pages_app',
     'users_app',
-    'posts_app'
+    'barters_app'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -153,6 +158,9 @@ ACCESS_TOKEN_EXPIRY = {
     'minutes': 0,
     'seconds': 10
 }
+
+REFRESH_TOKEN_SECRET = decouple.config('DJANGO_REFRESH_TOKEN_SECRET')
+ACCESS_TOKEN_SECRET = decouple.config('DJANGO_ACCESS_TOKEN_SECRET')
 
 # to accept cookies via axios
 CORS_ALLOW_CREDENTIALS = True

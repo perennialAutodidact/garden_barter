@@ -2,9 +2,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
-from .models import Instructor, Student, TeachingAssistant
-
-
 class UserCreateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
@@ -46,18 +43,3 @@ class UserDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         exclude = ['password', 'user_permissions', 'groups']
-
-
-class InstructorCreateSerializer(UserCreateSerializer):
-    class Meta:
-        model = Instructor
-        fields = ['username', 'email', 'password']
-
-
-class StudentCreateSerializer(UserCreateSerializer):
-    class Meta:
-        model = Student
-        fields = ['username', 'email', 'password']
-
-
-    
