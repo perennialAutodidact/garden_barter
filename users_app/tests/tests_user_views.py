@@ -1,9 +1,7 @@
 import time
-from ctypes import Union
-from typing import TypeVar
 
 import jwt
-from backend_proj import settings
+from garden_barter_proj import settings
 from django.contrib.auth import get_user_model
 from django.middleware.csrf import get_token as generate_csrf_token
 from django.test import TestCase
@@ -17,7 +15,6 @@ from users_app.serializers import (UserCreateSerializer, UserDetailSerializer,
                                    UserUpdateSerializer)
 from users_app.utils import Token
 
-UserModelClass = TypeVar('UserModelClass', User, Instructor, Student, TeachingAssistant)
 class TestRegister(TestCase):
     def setUp(self):
         # Every test needs access to the request factory.
@@ -219,7 +216,7 @@ class TestUserDetail(TestCase):
         self.valid_access_token = Token(self.valid_user, 'access')
         self.expired_refresh_token = Token(self.valid_user, 'access', expiry={'minutes':-10})
 
-    def _generate_test_user(self, UserModel:UserModelClass, email: str, password: str, token_expiry: dict = None, **kwargs) -> 'User':
+    def _generate_test_user(self, UserModel:User, email: str, password: str, token_expiry: dict = None, **kwargs) -> 'User':
         '''Generate a User object and RefreshToken for that user.
         UserModel - One of the models from the users_app
         email - string

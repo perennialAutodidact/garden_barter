@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 
+
 class CSRFCheck(CsrfViewMiddleware):
     def _reject(self, request, reason):
         # Return the failure reason instead of an HttpResponse
@@ -62,9 +63,10 @@ class SafeJWTAuthentication(BaseAuthentication):
         """
         Enforce CSRF validation
         """
-
+        def dummy_get_response(request):  # pragma: no cover
+            return None
         # populates request.META['CSRF_COOKIE'], which is used in process_view()
-        check = CSRFCheck()
+        check = CSRFCheck(dummy_get_response)
 
         check.process_request(request)
 

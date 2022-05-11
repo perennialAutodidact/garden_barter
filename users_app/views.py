@@ -127,9 +127,12 @@ def login(request):
     try:
         # if the user has a refresh token in the db,
         # get the old token
-        old_refresh_token = RefreshToken.objects.get(user=user.id)
-        # delete the old token
-        old_refresh_token.delete()
+        old_refresh_tokens = RefreshToken.objects.filter(user=user.id)
+
+        for token in old_refresh_tokens:
+            # delete the old token
+            token.delete()
+
         # generate new token
         RefreshToken.objects.create(user=user, token=refresh_token)
 
@@ -249,11 +252,12 @@ def extend_token(request):
         # return 401 Unauthorized
 
         # find the expired token in the database
-        expired_token = RefreshToken.objects.filter(
+        expired_tokens = RefreshToken.objects.filter(
             token=refresh_token).first()
 
-        # delete the old token
-        expired_token.delete()
+        for token in expired_tokens:
+            # delete the old token
+            token.delete()
 
         response.data = {
             'msg': ['Expired refresh token, please log in again.']
@@ -397,7 +401,7 @@ def logout(request):
 
     # find the logged in user's refresh token
     refresh_token = RefreshToken.objects.filter(
-        user=logged_in_user).first()
+        user=logged_in_user['id']).first()
 
     if refresh_token is None:
         response.data = {'msg': ['Not logged in']}

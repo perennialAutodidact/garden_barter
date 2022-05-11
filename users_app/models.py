@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from django_cryptography.fields import encrypt # use on all sensitive fields (https://www.securecoding.com/blog/cryptography-for-security-in-django-app/)
-import uuid
+
 
 class UserManager(BaseUserManager):
     """Define a model manager for User model with no username field."""
@@ -45,7 +45,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractUser):
     email = models.EmailField(
-        'email address',
+    _('email address'),
         unique=True,
         error_messages={ # overwrite default error message for unique constraint
             'unique':"This email has already been registered."
@@ -53,7 +53,7 @@ class User(AbstractUser):
     )
 
     # optional username
-    username = models.CharField(max_length=30, null=True, blank=True)
+    username = models.CharField(_('username'), max_length=30, null=True, blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -70,3 +70,7 @@ class RefreshToken(models.Model):
     def __str__(self):
         return f"{self.user}'s refresh token"
 
+# class Location(models.Model):
+#     street = models.CharField(_('street'), max_length=255)
+#     cross_street = models.CharField(_('cross street'), max_length=255)
+#     city = models.CharField(_('city'), max_length=255)
