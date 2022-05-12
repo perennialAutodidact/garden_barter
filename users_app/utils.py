@@ -4,6 +4,33 @@ import datetime
 import decouple
 from garden_barter_proj import settings
 
+from .models import RefreshToken, User
+
+def generate_test_user(UserModel: User, email: str, password: str, token_expiry: dict = None, **kwargs) -> 'User':
+    '''Generate a User object and RefreshToken for that user.
+    UserModel - One of the models from the users_app
+    email - string
+    password - string
+    token_expiry - dict containing the time from creation to expiration for a token. {'hours': 1, 'minutes':1, 'seconds': 1}
+    '''
+
+    user, created = UserModel.objects.get_or_create(
+        email=email,
+        password=password,
+    )
+
+    if kwargs:
+        for attr, value in kwargs.items():
+            setattr(user, attr, value)
+
+    user.save()
+
+    refresh_token = Token(user, 'refresh', expiry=token_expiry)
+    user_refresh_token = RefreshToken.objects.get_or_create(
+        user=user, token=refresh_token)
+
+    return user, refresh_token
+
 
 class Token:
     '''
@@ -15,9 +42,9 @@ class Token:
 
     def __init__(self, user, token_type: str = 'access', expiry: dict = None, **extra_payload_items) -> None:
         ACCESS_EXPIRY = {'days': 0, 'minutes': 1,
-                         'seconds': 5, 'milliseconds': 0, 'microseconds':0}
+                         'seconds': 5, 'milliseconds': 0, 'microseconds': 0}
         REFRESH_EXPIRY = {'days': 7, 'minutes': 0,
-                          'seconds': 0, 'milliseconds': 0, 'microseconds':0}
+                          'seconds': 0, 'milliseconds': 0, 'microseconds': 0}
 
         self.user = user
         self.token_type = token_type

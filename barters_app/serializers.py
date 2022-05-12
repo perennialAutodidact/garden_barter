@@ -1,30 +1,50 @@
 from rest_framework import serializers
 from .models import *
 
+
 class BarterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Barter
         fields = [
-            'creator',
-            'title',
-            'description',
-            'will_trade_for',
-            'is_free'
+            "creator",
+            "title",
+            "description",
+            "date_created",
+            "date_updated",
+            "date_expires",
+            "postal_code",
+            "latitude",
+            "longitude",
+            "cross_street_1",
+            "cross_street_2",
+            "will_trade_for",
+            "is_free",
+            "quantity",
+            "quantity_unit",
         ]
 
-class SeedSerializer(BarterSerializer):
+        read_only_fields = [
+            'creator',
+            'latitude',
+            'longitude',
+            'date_expires',
+        ]
+
+
+class SeedBarterSerializer(BarterSerializer):
     class Meta:
-        model = Seed
+        model = SeedBarter
         fields = BarterSerializer.Meta.fields + [
             'genus',
             'species',
             'common_name',
-            'date_packaged'
+            'year_packaged'
         ]
 
-class PlantSerializer(BarterSerializer):
+
+class PlantBarterSerializer(BarterSerializer):
     class Meta:
-        model = Plant
+        model = PlantBarter
         fields = BarterSerializer.Meta.fields + [
             'genus',
             'species',
@@ -32,9 +52,10 @@ class PlantSerializer(BarterSerializer):
             'age'
         ]
 
-class ProduceSerializer(BarterSerializer):
+
+class ProduceBarterSerializer(BarterSerializer):
     class Meta:
-        model = Produce
+        model = ProduceBarter
         fields = BarterSerializer.Meta.fields + [
             'genus',
             'species',
@@ -43,8 +64,9 @@ class ProduceSerializer(BarterSerializer):
         ]
 
 
-class MaterialSerializer(BarterSerializer):
-    model = Material
+class MaterialBarterSerializer(BarterSerializer):
+    model = MaterialBarter
 
-class ToolSerializer(BarterSerializer):
-    model = Tool
+
+class ToolBarterSerializer(BarterSerializer):
+    model = ToolBarter

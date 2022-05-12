@@ -6,7 +6,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from rest_framework.response import Response
 from rest_framework import status
-
+from django.middleware.csrf import get_token as generate_csrf_token
 
 
 class CSRFCheck(CsrfViewMiddleware):
@@ -64,11 +64,16 @@ class SafeJWTAuthentication(BaseAuthentication):
         Enforce CSRF validation
         """
         def dummy_get_response(request):  # pragma: no cover
-            return None
-        # populates request.META['CSRF_COOKIE'], which is used in process_view()
+            return request
+        # # populates request.META['CSRF_COOKIE'], which is used in process_view()
+        
         check = CSRFCheck(dummy_get_response)
 
+        # request.COOKIES['CSRF_COOKIE'] = request.headers.get('X-CSRFToken')
+
         check.process_request(request)
+
+        print(request.COOKIES)
 
         reason = check.process_view(request, None, (), {})
         if reason:

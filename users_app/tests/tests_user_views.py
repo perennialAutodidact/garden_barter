@@ -13,7 +13,8 @@ from users_app import views
 from users_app.models import *
 from users_app.serializers import (UserCreateSerializer, UserDetailSerializer,
                                    UserUpdateSerializer)
-from users_app.utils import Token
+from users_app.utils import Token, generate_test_user
+
 
 class TestRegister(TestCase):
     def setUp(self):
@@ -193,20 +194,20 @@ class TestUserDetail(TestCase):
         # Every test needs access to the request factory.
         self.factory = APIRequestFactory()
 
-        self.valid_user, self.valid_refresh_token = self._generate_test_user(
+        self.valid_user, self.valid_refresh_token = generate_test_user(
             UserModel=get_user_model(),
             email="valid_user@test.com",
             password="pass3412",
         )
 
-        self.invalid_user, self.expired_refresh_token = self._generate_test_user(
+        self.invalid_user, self.expired_refresh_token = generate_test_user(
             UserModel=get_user_model(),
             email="invalid_user@test.com",
             password="pass3412",
             token_expiry={'seconds': -10}
         )
 
-        self.inactive_user, self.inactive_refresh_token = self._generate_test_user(
+        self.inactive_user, self.inactive_refresh_token = generate_test_user(
             UserModel=get_user_model(),
             email="inactive_user@test.com",
             password="pass3412",
@@ -215,31 +216,6 @@ class TestUserDetail(TestCase):
 
         self.valid_access_token = Token(self.valid_user, 'access')
         self.expired_refresh_token = Token(self.valid_user, 'access', expiry={'minutes':-10})
-
-    def _generate_test_user(self, UserModel:User, email: str, password: str, token_expiry: dict = None, **kwargs) -> 'User':
-        '''Generate a User object and RefreshToken for that user.
-        UserModel - One of the models from the users_app
-        email - string
-        password - string
-        token_expiry - dict containing the time from creation to expiration for a token. {'hours': 1, 'minutes':1, 'seconds': 1}
-        '''
-
-        user, created = UserModel.objects.get_or_create(
-            email=email,
-            password=password,
-        )
-
-        if kwargs:
-            for attr, value in kwargs.items():
-                setattr(user, attr, value)
-
-        user.save()
-
-        refresh_token = Token(user, 'refresh', expiry=token_expiry)
-        user_refresh_token = RefreshToken.objects.get_or_create(
-            user=user, token=refresh_token)
-
-        return user, refresh_token
 
     def test_user_detail_success(self):
         user_id = self.valid_user.id
