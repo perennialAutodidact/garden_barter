@@ -73,8 +73,6 @@ class SafeJWTAuthentication(BaseAuthentication):
 
         check.process_request(request)
 
-        print(request.COOKIES)
-
         reason = check.process_view(request, None, (), {})
         if reason:
             # CSRF failed, bail with explicit error message

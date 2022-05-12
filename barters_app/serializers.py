@@ -1,8 +1,11 @@
 from rest_framework import serializers
 from .models import *
 
-
+from users_app.serializers import UserDetailSerializer
 class BarterSerializer(serializers.ModelSerializer):
+
+    creator = UserDetailSerializer(read_only=True)
+
     class Meta:
         model = Barter
         fields = [
@@ -20,18 +23,13 @@ class BarterSerializer(serializers.ModelSerializer):
             "will_trade_for",
             "is_free",
             "quantity",
-            "quantity_unit",
+            "quantity_units",
         ]
 
-        read_only_fields = [
-            'creator',
-            'latitude',
-            'longitude',
-            'date_expires',
-        ]
 
 
 class SeedBarterSerializer(BarterSerializer):
+
     class Meta:
         model = SeedBarter
         fields = BarterSerializer.Meta.fields + [
