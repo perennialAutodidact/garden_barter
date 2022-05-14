@@ -24,6 +24,7 @@ class BarterSerializer(serializers.ModelSerializer):
             "is_free",
             "quantity",
             "quantity_units",
+            "barter_type"
         ]
 
 

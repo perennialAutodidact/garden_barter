@@ -1,0 +1,1433 @@
+[
+{
+  "model": "barters_app.barter",
+  "pk": 1,
+  "fields": {
+    "creator": 2,
+    "title": "seed barter title 0",
+    "description": "seed barter description 0",
+    "date_created": "2022-05-13T06:31:54.052Z",
+    "date_updated": "2022-05-13T06:31:54.052Z",
+    "date_expires": "2022-05-20T06:31:54.052Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 0",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "seed"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 2,
+  "fields": {
+    "creator": 2,
+    "title": "seed barter title 1",
+    "description": "seed barter description 1",
+    "date_created": "2022-05-13T06:31:54.078Z",
+    "date_updated": "2022-05-13T06:31:54.078Z",
+    "date_expires": "2022-05-20T06:31:54.078Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 1",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "seed"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 3,
+  "fields": {
+    "creator": 2,
+    "title": "seed barter title 2",
+    "description": "seed barter description 2",
+    "date_created": "2022-05-13T06:31:54.099Z",
+    "date_updated": "2022-05-13T06:31:54.099Z",
+    "date_expires": "2022-05-20T06:31:54.099Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 2",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "seed"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 4,
+  "fields": {
+    "creator": 2,
+    "title": "plant barter title 0",
+    "description": "plant barter description 0",
+    "date_created": "2022-05-13T06:31:54.124Z",
+    "date_updated": "2022-05-13T06:31:54.125Z",
+    "date_expires": "2022-05-20T06:31:54.124Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 0",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "plant"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 5,
+  "fields": {
+    "creator": 2,
+    "title": "plant barter title 1",
+    "description": "plant barter description 1",
+    "date_created": "2022-05-13T06:31:54.146Z",
+    "date_updated": "2022-05-13T06:31:54.147Z",
+    "date_expires": "2022-05-20T06:31:54.146Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 1",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "plant"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 6,
+  "fields": {
+    "creator": 2,
+    "title": "plant barter title 2",
+    "description": "plant barter description 2",
+    "date_created": "2022-05-13T06:31:54.170Z",
+    "date_updated": "2022-05-13T06:31:54.170Z",
+    "date_expires": "2022-05-20T06:31:54.169Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 2",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "plant"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 7,
+  "fields": {
+    "creator": 2,
+    "title": "produce barter title 0",
+    "description": "produce barter description 0",
+    "date_created": "2022-05-13T06:31:54.191Z",
+    "date_updated": "2022-05-13T06:31:54.191Z",
+    "date_expires": "2022-05-20T06:31:54.191Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 0",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "produce"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 8,
+  "fields": {
+    "creator": 2,
+    "title": "produce barter title 1",
+    "description": "produce barter description 1",
+    "date_created": "2022-05-13T06:31:54.214Z",
+    "date_updated": "2022-05-13T06:31:54.214Z",
+    "date_expires": "2022-05-20T06:31:54.213Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 1",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "produce"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 9,
+  "fields": {
+    "creator": 2,
+    "title": "produce barter title 2",
+    "description": "produce barter description 2",
+    "date_created": "2022-05-13T06:31:54.237Z",
+    "date_updated": "2022-05-13T06:31:54.237Z",
+    "date_expires": "2022-05-20T06:31:54.237Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 2",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "produce"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 10,
+  "fields": {
+    "creator": 2,
+    "title": "material barter title 0",
+    "description": "material barter description 0",
+    "date_created": "2022-05-13T06:31:54.261Z",
+    "date_updated": "2022-05-13T06:31:54.261Z",
+    "date_expires": "2022-05-20T06:31:54.261Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 0",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "material"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 11,
+  "fields": {
+    "creator": 2,
+    "title": "material barter title 1",
+    "description": "material barter description 1",
+    "date_created": "2022-05-13T06:31:54.285Z",
+    "date_updated": "2022-05-13T06:31:54.286Z",
+    "date_expires": "2022-05-20T06:31:54.285Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 1",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "material"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 12,
+  "fields": {
+    "creator": 2,
+    "title": "material barter title 2",
+    "description": "material barter description 2",
+    "date_created": "2022-05-13T06:31:54.314Z",
+    "date_updated": "2022-05-13T06:31:54.314Z",
+    "date_expires": "2022-05-20T06:31:54.313Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 2",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "material"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 13,
+  "fields": {
+    "creator": 2,
+    "title": "tool barter title 0",
+    "description": "tool barter description 0",
+    "date_created": "2022-05-13T06:31:54.336Z",
+    "date_updated": "2022-05-13T06:31:54.336Z",
+    "date_expires": "2022-05-20T06:31:54.335Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 0",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "tool"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 14,
+  "fields": {
+    "creator": 2,
+    "title": "tool barter title 1",
+    "description": "tool barter description 1",
+    "date_created": "2022-05-13T06:31:54.355Z",
+    "date_updated": "2022-05-13T06:31:54.355Z",
+    "date_expires": "2022-05-20T06:31:54.354Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 1",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "tool"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 15,
+  "fields": {
+    "creator": 2,
+    "title": "tool barter title 2",
+    "description": "tool barter description 2",
+    "date_created": "2022-05-13T06:31:54.378Z",
+    "date_updated": "2022-05-13T06:31:54.378Z",
+    "date_expires": "2022-05-20T06:31:54.376Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 2",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "tool"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 16,
+  "fields": {
+    "creator": 3,
+    "title": "seed barter title 0",
+    "description": "seed barter description 0",
+    "date_created": "2022-05-13T06:31:54.708Z",
+    "date_updated": "2022-05-13T06:31:54.708Z",
+    "date_expires": "2022-05-20T06:31:54.707Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 0",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "seed"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 17,
+  "fields": {
+    "creator": 3,
+    "title": "seed barter title 1",
+    "description": "seed barter description 1",
+    "date_created": "2022-05-13T06:31:54.731Z",
+    "date_updated": "2022-05-13T06:31:54.731Z",
+    "date_expires": "2022-05-20T06:31:54.729Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 1",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "seed"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 18,
+  "fields": {
+    "creator": 3,
+    "title": "seed barter title 2",
+    "description": "seed barter description 2",
+    "date_created": "2022-05-13T06:31:54.750Z",
+    "date_updated": "2022-05-13T06:31:54.750Z",
+    "date_expires": "2022-05-20T06:31:54.750Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 2",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "seed"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 19,
+  "fields": {
+    "creator": 3,
+    "title": "plant barter title 0",
+    "description": "plant barter description 0",
+    "date_created": "2022-05-13T06:31:54.773Z",
+    "date_updated": "2022-05-13T06:31:54.773Z",
+    "date_expires": "2022-05-20T06:31:54.773Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 0",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "plant"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 20,
+  "fields": {
+    "creator": 3,
+    "title": "plant barter title 1",
+    "description": "plant barter description 1",
+    "date_created": "2022-05-13T06:31:54.797Z",
+    "date_updated": "2022-05-13T06:31:54.797Z",
+    "date_expires": "2022-05-20T06:31:54.797Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 1",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "plant"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 21,
+  "fields": {
+    "creator": 3,
+    "title": "plant barter title 2",
+    "description": "plant barter description 2",
+    "date_created": "2022-05-13T06:31:54.831Z",
+    "date_updated": "2022-05-13T06:31:54.831Z",
+    "date_expires": "2022-05-20T06:31:54.830Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 2",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "plant"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 22,
+  "fields": {
+    "creator": 3,
+    "title": "produce barter title 0",
+    "description": "produce barter description 0",
+    "date_created": "2022-05-13T06:31:54.857Z",
+    "date_updated": "2022-05-13T06:31:54.857Z",
+    "date_expires": "2022-05-20T06:31:54.856Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 0",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "produce"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 23,
+  "fields": {
+    "creator": 3,
+    "title": "produce barter title 1",
+    "description": "produce barter description 1",
+    "date_created": "2022-05-13T06:31:54.890Z",
+    "date_updated": "2022-05-13T06:31:54.890Z",
+    "date_expires": "2022-05-20T06:31:54.888Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 1",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "produce"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 24,
+  "fields": {
+    "creator": 3,
+    "title": "produce barter title 2",
+    "description": "produce barter description 2",
+    "date_created": "2022-05-13T06:31:54.928Z",
+    "date_updated": "2022-05-13T06:31:54.929Z",
+    "date_expires": "2022-05-20T06:31:54.928Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 2",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "produce"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 25,
+  "fields": {
+    "creator": 3,
+    "title": "material barter title 0",
+    "description": "material barter description 0",
+    "date_created": "2022-05-13T06:31:54.965Z",
+    "date_updated": "2022-05-13T06:31:54.965Z",
+    "date_expires": "2022-05-20T06:31:54.964Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 0",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "material"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 26,
+  "fields": {
+    "creator": 3,
+    "title": "material barter title 1",
+    "description": "material barter description 1",
+    "date_created": "2022-05-13T06:31:54.995Z",
+    "date_updated": "2022-05-13T06:31:54.995Z",
+    "date_expires": "2022-05-20T06:31:54.993Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 1",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "material"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 27,
+  "fields": {
+    "creator": 3,
+    "title": "material barter title 2",
+    "description": "material barter description 2",
+    "date_created": "2022-05-13T06:31:55.020Z",
+    "date_updated": "2022-05-13T06:31:55.020Z",
+    "date_expires": "2022-05-20T06:31:55.019Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 2",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "material"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 28,
+  "fields": {
+    "creator": 3,
+    "title": "tool barter title 0",
+    "description": "tool barter description 0",
+    "date_created": "2022-05-13T06:31:55.055Z",
+    "date_updated": "2022-05-13T06:31:55.055Z",
+    "date_expires": "2022-05-20T06:31:55.055Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 0",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "tool"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 29,
+  "fields": {
+    "creator": 3,
+    "title": "tool barter title 1",
+    "description": "tool barter description 1",
+    "date_created": "2022-05-13T06:31:55.092Z",
+    "date_updated": "2022-05-13T06:31:55.092Z",
+    "date_expires": "2022-05-20T06:31:55.091Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 1",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "tool"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 30,
+  "fields": {
+    "creator": 3,
+    "title": "tool barter title 2",
+    "description": "tool barter description 2",
+    "date_created": "2022-05-13T06:31:55.115Z",
+    "date_updated": "2022-05-13T06:31:55.115Z",
+    "date_expires": "2022-05-20T06:31:55.114Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 2",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "tool"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 31,
+  "fields": {
+    "creator": 4,
+    "title": "seed barter title 0",
+    "description": "seed barter description 0",
+    "date_created": "2022-05-13T06:31:55.697Z",
+    "date_updated": "2022-05-13T06:31:55.697Z",
+    "date_expires": "2022-05-20T06:31:55.697Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 0",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "seed"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 32,
+  "fields": {
+    "creator": 4,
+    "title": "seed barter title 1",
+    "description": "seed barter description 1",
+    "date_created": "2022-05-13T06:31:55.716Z",
+    "date_updated": "2022-05-13T06:31:55.716Z",
+    "date_expires": "2022-05-20T06:31:55.716Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 1",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "seed"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 33,
+  "fields": {
+    "creator": 4,
+    "title": "seed barter title 2",
+    "description": "seed barter description 2",
+    "date_created": "2022-05-13T06:31:55.740Z",
+    "date_updated": "2022-05-13T06:31:55.740Z",
+    "date_expires": "2022-05-20T06:31:55.740Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 2",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "seed"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 34,
+  "fields": {
+    "creator": 4,
+    "title": "plant barter title 0",
+    "description": "plant barter description 0",
+    "date_created": "2022-05-13T06:31:55.760Z",
+    "date_updated": "2022-05-13T06:31:55.760Z",
+    "date_expires": "2022-05-20T06:31:55.760Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 0",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "plant"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 35,
+  "fields": {
+    "creator": 4,
+    "title": "plant barter title 1",
+    "description": "plant barter description 1",
+    "date_created": "2022-05-13T06:31:55.779Z",
+    "date_updated": "2022-05-13T06:31:55.779Z",
+    "date_expires": "2022-05-20T06:31:55.779Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 1",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "plant"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 36,
+  "fields": {
+    "creator": 4,
+    "title": "plant barter title 2",
+    "description": "plant barter description 2",
+    "date_created": "2022-05-13T06:31:55.797Z",
+    "date_updated": "2022-05-13T06:31:55.797Z",
+    "date_expires": "2022-05-20T06:31:55.797Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 2",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "plant"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 37,
+  "fields": {
+    "creator": 4,
+    "title": "produce barter title 0",
+    "description": "produce barter description 0",
+    "date_created": "2022-05-13T06:31:55.815Z",
+    "date_updated": "2022-05-13T06:31:55.815Z",
+    "date_expires": "2022-05-20T06:31:55.814Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 0",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "produce"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 38,
+  "fields": {
+    "creator": 4,
+    "title": "produce barter title 1",
+    "description": "produce barter description 1",
+    "date_created": "2022-05-13T06:31:55.860Z",
+    "date_updated": "2022-05-13T06:31:55.860Z",
+    "date_expires": "2022-05-20T06:31:55.859Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 1",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "produce"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 39,
+  "fields": {
+    "creator": 4,
+    "title": "produce barter title 2",
+    "description": "produce barter description 2",
+    "date_created": "2022-05-13T06:31:55.899Z",
+    "date_updated": "2022-05-13T06:31:55.899Z",
+    "date_expires": "2022-05-20T06:31:55.899Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 2",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "produce"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 40,
+  "fields": {
+    "creator": 4,
+    "title": "material barter title 0",
+    "description": "material barter description 0",
+    "date_created": "2022-05-13T06:31:55.928Z",
+    "date_updated": "2022-05-13T06:31:55.928Z",
+    "date_expires": "2022-05-20T06:31:55.927Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 0",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "material"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 41,
+  "fields": {
+    "creator": 4,
+    "title": "material barter title 1",
+    "description": "material barter description 1",
+    "date_created": "2022-05-13T06:31:55.953Z",
+    "date_updated": "2022-05-13T06:31:55.953Z",
+    "date_expires": "2022-05-20T06:31:55.952Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 1",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "material"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 42,
+  "fields": {
+    "creator": 4,
+    "title": "material barter title 2",
+    "description": "material barter description 2",
+    "date_created": "2022-05-13T06:31:55.983Z",
+    "date_updated": "2022-05-13T06:31:55.983Z",
+    "date_expires": "2022-05-20T06:31:55.982Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 2",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "material"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 43,
+  "fields": {
+    "creator": 4,
+    "title": "tool barter title 0",
+    "description": "tool barter description 0",
+    "date_created": "2022-05-13T06:31:56.009Z",
+    "date_updated": "2022-05-13T06:31:56.009Z",
+    "date_expires": "2022-05-20T06:31:56.008Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 0",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "tool"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 44,
+  "fields": {
+    "creator": 4,
+    "title": "tool barter title 1",
+    "description": "tool barter description 1",
+    "date_created": "2022-05-13T06:31:56.038Z",
+    "date_updated": "2022-05-13T06:31:56.038Z",
+    "date_expires": "2022-05-20T06:31:56.037Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 1",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "tool"
+  }
+},
+{
+  "model": "barters_app.barter",
+  "pk": 45,
+  "fields": {
+    "creator": 4,
+    "title": "tool barter title 2",
+    "description": "tool barter description 2",
+    "date_created": "2022-05-13T06:31:56.066Z",
+    "date_updated": "2022-05-13T06:31:56.066Z",
+    "date_expires": "2022-05-20T06:31:56.065Z",
+    "quantity": "1.00",
+    "quantity_units": "CT",
+    "will_trade_for": "item that will be traded 2",
+    "is_free": false,
+    "postal_code": "77777",
+    "latitude": null,
+    "longitude": null,
+    "cross_street_1": "456 Fake St.",
+    "cross_street_2": "876 Synthetic Ave",
+    "barter_type": "tool"
+  }
+},
+{
+  "model": "barters_app.seedbarter",
+  "pk": 1,
+  "fields": {
+    "genus": null,
+    "species": null,
+    "common_name": null,
+    "year_packaged": null
+  }
+},
+{
+  "model": "barters_app.seedbarter",
+  "pk": 2,
+  "fields": {
+    "genus": null,
+    "species": null,
+    "common_name": null,
+    "year_packaged": null
+  }
+},
+{
+  "model": "barters_app.seedbarter",
+  "pk": 3,
+  "fields": {
+    "genus": null,
+    "species": null,
+    "common_name": null,
+    "year_packaged": null
+  }
+},
+{
+  "model": "barters_app.seedbarter",
+  "pk": 16,
+  "fields": {
+    "genus": null,
+    "species": null,
+    "common_name": null,
+    "year_packaged": null
+  }
+},
+{
+  "model": "barters_app.seedbarter",
+  "pk": 17,
+  "fields": {
+    "genus": null,
+    "species": null,
+    "common_name": null,
+    "year_packaged": null
+  }
+},
+{
+  "model": "barters_app.seedbarter",
+  "pk": 18,
+  "fields": {
+    "genus": null,
+    "species": null,
+    "common_name": null,
+    "year_packaged": null
+  }
+},
+{
+  "model": "barters_app.seedbarter",
+  "pk": 31,
+  "fields": {
+    "genus": null,
+    "species": null,
+    "common_name": null,
+    "year_packaged": null
+  }
+},
+{
+  "model": "barters_app.seedbarter",
+  "pk": 32,
+  "fields": {
+    "genus": null,
+    "species": null,
+    "common_name": null,
+    "year_packaged": null
+  }
+},
+{
+  "model": "barters_app.seedbarter",
+  "pk": 33,
+  "fields": {
+    "genus": null,
+    "species": null,
+    "common_name": null,
+    "year_packaged": null
+  }
+},
+{
+  "model": "barters_app.plantbarter",
+  "pk": 4,
+  "fields": {
+    "genus": null,
+    "species": null,
+    "common_name": null,
+    "date_planted": null
+  }
+},
+{
+  "model": "barters_app.plantbarter",
+  "pk": 5,
+  "fields": {
+    "genus": null,
+    "species": null,
+    "common_name": null,
+    "date_planted": null
+  }
+},
+{
+  "model": "barters_app.plantbarter",
+  "pk": 6,
+  "fields": {
+    "genus": null,
+    "species": null,
+    "common_name": null,
+    "date_planted": null
+  }
+},
+{
+  "model": "barters_app.plantbarter",
+  "pk": 7,
+  "fields": {
+    "genus": null,
+    "species": null,
+    "common_name": null,
+    "date_planted": null
+  }
+},
+{
+  "model": "barters_app.plantbarter",
+  "pk": 8,
+  "fields": {
+    "genus": null,
+    "species": null,
+    "common_name": null,
+    "date_planted": null
+  }
+},
+{
+  "model": "barters_app.plantbarter",
+  "pk": 9,
+  "fields": {
+    "genus": null,
+    "species": null,
+    "common_name": null,
+    "date_planted": null
+  }
+},
+{
+  "model": "barters_app.plantbarter",
+  "pk": 19,
+  "fields": {
+    "genus": null,
+    "species": null,
+    "common_name": null,
+    "date_planted": null
+  }
+},
+{
+  "model": "barters_app.plantbarter",
+  "pk": 20,
+  "fields": {
+    "genus": null,
+    "species": null,
+    "common_name": null,
+    "date_planted": null
+  }
+},
+{
+  "model": "barters_app.plantbarter",
+  "pk": 21,
+  "fields": {
+    "genus": null,
+    "species": null,
+    "common_name": null,
+    "date_planted": null
+  }
+},
+{
+  "model": "barters_app.plantbarter",
+  "pk": 22,
+  "fields": {
+    "genus": null,
+    "species": null,
+    "common_name": null,
+    "date_planted": null
+  }
+},
+{
+  "model": "barters_app.plantbarter",
+  "pk": 23,
+  "fields": {
+    "genus": null,
+    "species": null,
+    "common_name": null,
+    "date_planted": null
+  }
+},
+{
+  "model": "barters_app.plantbarter",
+  "pk": 24,
+  "fields": {
+    "genus": null,
+    "species": null,
+    "common_name": null,
+    "date_planted": null
+  }
+},
+{
+  "model": "barters_app.plantbarter",
+  "pk": 34,
+  "fields": {
+    "genus": null,
+    "species": null,
+    "common_name": null,
+    "date_planted": null
+  }
+},
+{
+  "model": "barters_app.plantbarter",
+  "pk": 35,
+  "fields": {
+    "genus": null,
+    "species": null,
+    "common_name": null,
+    "date_planted": null
+  }
+},
+{
+  "model": "barters_app.plantbarter",
+  "pk": 36,
+  "fields": {
+    "genus": null,
+    "species": null,
+    "common_name": null,
+    "date_planted": null
+  }
+},
+{
+  "model": "barters_app.plantbarter",
+  "pk": 37,
+  "fields": {
+    "genus": null,
+    "species": null,
+    "common_name": null,
+    "date_planted": null
+  }
+},
+{
+  "model": "barters_app.plantbarter",
+  "pk": 38,
+  "fields": {
+    "genus": null,
+    "species": null,
+    "common_name": null,
+    "date_planted": null
+  }
+},
+{
+  "model": "barters_app.plantbarter",
+  "pk": 39,
+  "fields": {
+    "genus": null,
+    "species": null,
+    "common_name": null,
+    "date_planted": null
+  }
+},
+{
+  "model": "barters_app.producebarter",
+  "pk": 7,
+  "fields": {
+    "date_harvested": null
+  }
+},
+{
+  "model": "barters_app.producebarter",
+  "pk": 8,
+  "fields": {
+    "date_harvested": null
+  }
+},
+{
+  "model": "barters_app.producebarter",
+  "pk": 9,
+  "fields": {
+    "date_harvested": null
+  }
+},
+{
+  "model": "barters_app.producebarter",
+  "pk": 22,
+  "fields": {
+    "date_harvested": null
+  }
+},
+{
+  "model": "barters_app.producebarter",
+  "pk": 23,
+  "fields": {
+    "date_harvested": null
+  }
+},
+{
+  "model": "barters_app.producebarter",
+  "pk": 24,
+  "fields": {
+    "date_harvested": null
+  }
+},
+{
+  "model": "barters_app.producebarter",
+  "pk": 37,
+  "fields": {
+    "date_harvested": null
+  }
+},
+{
+  "model": "barters_app.producebarter",
+  "pk": 38,
+  "fields": {
+    "date_harvested": null
+  }
+},
+{
+  "model": "barters_app.producebarter",
+  "pk": 39,
+  "fields": {
+    "date_harvested": null
+  }
+},
+{
+  "model": "barters_app.materialbarter",
+  "pk": 10,
+  "fields": {}
+},
+{
+  "model": "barters_app.materialbarter",
+  "pk": 11,
+  "fields": {}
+},
+{
+  "model": "barters_app.materialbarter",
+  "pk": 12,
+  "fields": {}
+},
+{
+  "model": "barters_app.materialbarter",
+  "pk": 25,
+  "fields": {}
+},
+{
+  "model": "barters_app.materialbarter",
+  "pk": 26,
+  "fields": {}
+},
+{
+  "model": "barters_app.materialbarter",
+  "pk": 27,
+  "fields": {}
+},
+{
+  "model": "barters_app.materialbarter",
+  "pk": 40,
+  "fields": {}
+},
+{
+  "model": "barters_app.materialbarter",
+  "pk": 41,
+  "fields": {}
+},
+{
+  "model": "barters_app.materialbarter",
+  "pk": 42,
+  "fields": {}
+},
+{
+  "model": "barters_app.toolbarter",
+  "pk": 13,
+  "fields": {
+    "dimensions": null
+  }
+},
+{
+  "model": "barters_app.toolbarter",
+  "pk": 14,
+  "fields": {
+    "dimensions": null
+  }
+},
+{
+  "model": "barters_app.toolbarter",
+  "pk": 15,
+  "fields": {
+    "dimensions": null
+  }
+},
+{
+  "model": "barters_app.toolbarter",
+  "pk": 28,
+  "fields": {
+    "dimensions": null
+  }
+},
+{
+  "model": "barters_app.toolbarter",
+  "pk": 29,
+  "fields": {
+    "dimensions": null
+  }
+},
+{
+  "model": "barters_app.toolbarter",
+  "pk": 30,
+  "fields": {
+    "dimensions": null
+  }
+},
+{
+  "model": "barters_app.toolbarter",
+  "pk": 43,
+  "fields": {
+    "dimensions": null
+  }
+},
+{
+  "model": "barters_app.toolbarter",
+  "pk": 44,
+  "fields": {
+    "dimensions": null
+  }
+},
+{
+  "model": "barters_app.toolbarter",
+  "pk": 45,
+  "fields": {
+    "dimensions": null
+  }
+}
+]

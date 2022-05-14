@@ -13,9 +13,10 @@ from rest_framework.test import APIRequestFactory
 from users_app.serializers import UserDetailSerializer
 from users_app.utils import Token, generate_test_user
 from jwt.exceptions import DecodeError
+from barters_app.tests.utils import enrich_request
 
 
-class TestCreateBarter(TestCase):
+class TestBarterCreate(TestCase):
     def setUp(self):
         # Every test needs access to the request factory.
         self.factory = APIRequestFactory(enforce_csrf_checks=True)
@@ -38,6 +39,7 @@ class TestCreateBarter(TestCase):
             'cross_street_1': '123 Faux St.',
             'cross_street_2': '789 Impostor Rd',
             'postal_code': '99999',
+            'barter_type': 'seed',
             'latitude': '',
             'longitude': ''
         }
@@ -63,28 +65,6 @@ class TestCreateBarter(TestCase):
             format='json'
         )
 
-    def enrich_request(self, request, refresh_token, access_token, csrf_token):
-        '''Ammend COOKIES, META and header data to the given request'''
-
-        # if refresh_token and csrf_token:
-        request.COOKIES.update({
-            'refreshtoken': refresh_token,
-            'csrftoken': csrf_token
-        })
-        
-        # if csrf_token:
-        request.META.update({
-            'X-CSRFToken': csrf_token
-        })
-
-        # if access_token:
-        headers = {
-            'Authorization': f'Token {access_token}',
-        }
-
-        request.headers = headers
-
-        return request
 
     def test_create_seed_barter_success(self):
         request = self.generate_request(
@@ -96,12 +76,14 @@ class TestCreateBarter(TestCase):
         )
         csrf_token = generate_csrf_token(request)
 
-        request = self.enrich_request(request, self.valid_refresh_token, self.valid_access_token, csrf_token)
+        request = enrich_request(request, self.valid_refresh_token, self.valid_access_token, csrf_token)
 
         response = views.create(request)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         
+
+
         new_barter = SeedBarter.objects.get(title=self.seed_barter_data['title'])
         self.assertEqual(new_barter.title, self.seed_barter_data['title'])
         
@@ -115,7 +97,7 @@ class TestCreateBarter(TestCase):
         )
         csrf_token = generate_csrf_token(request)
 
-        request = self.enrich_request(request, self.valid_refresh_token, self.valid_access_token, csrf_token)
+        request = enrich_request(request, self.valid_refresh_token, self.valid_access_token, csrf_token)
 
         response = views.create(request)
 
@@ -134,7 +116,7 @@ class TestCreateBarter(TestCase):
         )
         csrf_token = generate_csrf_token(request)
 
-        request = self.enrich_request(request, self.valid_refresh_token, self.valid_access_token, csrf_token)
+        request = enrich_request(request, self.valid_refresh_token, self.valid_access_token, csrf_token)
 
         response = views.create(request)
 
@@ -153,7 +135,7 @@ class TestCreateBarter(TestCase):
         )
         csrf_token = generate_csrf_token(request)
 
-        request = self.enrich_request(request, self.valid_refresh_token, self.valid_access_token, csrf_token)
+        request = enrich_request(request, self.valid_refresh_token, self.valid_access_token, csrf_token)
 
         response = views.create(request)
 
@@ -172,7 +154,7 @@ class TestCreateBarter(TestCase):
         )
         csrf_token = generate_csrf_token(request)
 
-        request = self.enrich_request(request, self.valid_refresh_token, self.valid_access_token, csrf_token)
+        request = enrich_request(request, self.valid_refresh_token, self.valid_access_token, csrf_token)
 
         response = views.create(request)
 
@@ -192,7 +174,7 @@ class TestCreateBarter(TestCase):
         csrf_token = generate_csrf_token(request)
 
         # invalid access token
-        request = self.enrich_request(request, self.valid_refresh_token, self.invalid_access_token, csrf_token)
+        request = enrich_request(request, self.valid_refresh_token, self.invalid_access_token, csrf_token)
 
         response = views.create(request)
 
@@ -202,10 +184,10 @@ class TestCreateBarter(TestCase):
 
         with self.assertRaises(DecodeError, msg='Not enough segments'):
             # missing access token
-            request = self.enrich_request(request, self.valid_refresh_token, None, csrf_token)
+            request = enrich_request(request, self.valid_refresh_token, None, csrf_token)
             response = views.create(request)
             
             # missing csrf_token
-            request = self.enrich_request(request, self.valid_refresh_token, self.valid_access_token, None)
+            request = enrich_request(request, self.valid_refresh_token, self.valid_access_token, None)
             response = views.create(request)
 

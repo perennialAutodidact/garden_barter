@@ -6,9 +6,19 @@ from datetime import timedelta
 from django.utils import timezone
 
 QUANTITY_UNIT_CHOICES = [
+    ('PT', 'plant'),
+    ('BC', 'bunch'),
     ('CT', 'count'),
     ('LB', 'pound'),
     ('CY', 'cubic yard'),
+]
+
+BARTER_TYPE_CHOICES = [
+    ('seed', 'Seed'),
+    ('plant', 'Plant'),
+    ('produce', 'Produce'),
+    ('material', 'Material'),
+    ('tool', 'Tool')
 ]
 
 class Barter(models.Model):
@@ -32,6 +42,7 @@ class Barter(models.Model):
     cross_street_1 = models.CharField(_('cross street 1'), max_length=255, null=True, blank=True)
     cross_street_2 = models.CharField(_('cross street 2'), max_length=255, null=True, blank=True)
 
+    barter_type = models.CharField(_('barter type'), max_length=10, choices=BARTER_TYPE_CHOICES ,default='')
 
     def save(self, *args, **kwargs):
 
