@@ -15,36 +15,78 @@ from users_app.serializers import UserDetailSerializer
 from users_app.utils import Token, generate_test_user
 from jwt.exceptions import DecodeError
 from barters_app.tests.utils import enrich_request
+from users_app.models import RefreshToken
+
+BARTER_TYPES = [ 
+    'seed_barter',
+    'plant_barter',
+    'produce_barter',
+    'material_barter',
+    'tool_barter'
+]
+
 
 class TestBarterRetrieve(TestCase):
-    fixtures=['fixtures/barters.json', 'fixtures/users.json']
-
-    def setUp(self):
+    @classmethod
+    def setUpTestData(cls):
+        users = []
         # Every test needs access to the request factory.
-        self.factory = APIRequestFactory(enforce_csrf_checks=True)
+        cls.factory = APIRequestFactory(enforce_csrf_checks=True)
+        models = {
+            'plant': PlantBarter,
+            'produce': ProduceBarter,
+            'material': MaterialBarter,
+            'tool':ToolBarter
+        }
 
-        # User 1
-        self.user_1, self.valid_refresh_token_1 = generate_test_user(
-            UserModel=get_user_model(),
-            email='test_user_1@gardenbarter.com',
-            password='pass3412'
+        for i in range(3):
+            user = get_user_model().objects.create_user(
+                email=f"user_{i}@gardenbarter.com",
+                password='pass3412'
+            )
+
+            users.append(user)
+
+
+            for barter_type in models:
+                Model=models[barter_type]
+                for i in range(3):
+                    Model.objects.create(
+                        creator=user,
+                        title=f'{barter_type} barter title {i}',
+                        description= f'{barter_type} barter description {i}',
+                        will_trade_for= f'item that will be traded {i}',
+                        is_free= False,
+                        cross_street_1= '456 Fake St.',
+                        cross_street_2= '876 Synthetic Ave',
+                        postal_code= '77777',
+                        barter_type=barter_type
+                    )
+
+        cls.user_1, cls.user_2, cls.user_3 = users
+
+        cls.valid_refresh_token = RefreshToken.objects.create(
+            user=cls.user_1,
+            token=Token(user, 'refresh').token
         )
+        cls.valid_access_token = Token(cls.user_1, 'access')
 
-        self.valid_access_token_1 = Token(self.user_1, 'access')
-        self.invalid_access_token_1 = Token(self.user_1, 'access', expiry={'days':-1})
 
-        # User 2
-        self.user_2, self.valid_refresh_token_2 = generate_test_user(
-            UserModel=get_user_model(),
-            email='test_user_2@gardenbarter.com',
-            password='pass3412'
+        cls.invalid_refresh_token = RefreshToken.objects.create(
+            user=cls.user_2,
+            token=Token(
+                user,
+                'refresh',
+                expiry={'days': -1}
+            ).token,
         )
-
-        self.valid_access_token_2 = Token(self.user_2, 'access')
-        self.invalid_access_token_2 = Token(self.user_2, 'access', expiry={'days':-1})
+        cls.invalid_access_token = Token(
+            cls.user_2,
+            'access',
+            expiry={'days': -1}
+        ).token
 
         
-
     def generate_request(self, barter_type=None, barter_id=None):
         '''return a Factory.get() request with the provided data'''
 
@@ -66,8 +108,8 @@ class TestBarterRetrieve(TestCase):
         csrf_token = generate_csrf_token(request)
         request = enrich_request(
             request,
-            self.valid_refresh_token_1,
-            self.valid_access_token_1,
+            self.valid_refresh_token,
+            self.valid_access_token,
             csrf_token
         )
 
@@ -76,3 +118,14 @@ class TestBarterRetrieve(TestCase):
         # there are 45 barters in the test db
         self.assertEqual(len(response.data['barters']), 45)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        response = views.retrieve(request, barter_type='seed_barter')
+
+        self.assertEqual(len(response.data['barters']), 9)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        
+        for barter_type in BARTER_TYPES:
+            response = views.retrieve(request, barter_type=barter_type)
+            self.assertEqual(response.data['barters'][0]['barter_type'], barter_type.split('_')[0])
+            self.assertEqual(len(response.data['barters']), 9)
+            self.assertEqual(response.status_code, status.HTTP_200_OK)

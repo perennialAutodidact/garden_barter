@@ -68,9 +68,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ProduceBarter',
             fields=[
-                ('plantbarter_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='barters_app.plantbarter')),
+                ('barter_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='barters_app.barter')),
                 ('date_harvested', models.DateField(null=True)),
             ],
-            bases=('barters_app.plantbarter',),
+            bases=('barters_app.barter',),
         ),
     ]

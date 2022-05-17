@@ -75,7 +75,10 @@ class PlantBarter(Barter):
     date_planted = models.DateField(max_length=255, null=True, blank=True)
 
 
-class ProduceBarter(PlantBarter):
+class ProduceBarter(Barter):
+    genus = models.CharField(_('genus'), max_length=255, null=True, blank=True)
+    species = models.CharField(_('species'), max_length=255, null=True, blank=True)
+    common_name = models.CharField(_('common_name'), max_length=255, null=True, blank=True)
     date_harvested = models.DateField(null=True)
 
 

@@ -73,6 +73,15 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'test': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'CONN_MAX_AGE': 3600,
+        'NAME': BASE_DIR / 'test_db.sqlite3',
+        'USER': 'user',
+        'PASSWORD': 'pass',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
     }
 }
 
