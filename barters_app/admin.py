@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import (Barter, MaterialBarter, PlantBarter, ProduceBarter,
+                     SeedBarter, ToolBarter)
+
+
+admin.site.register([Barter, MaterialBarter, PlantBarter, ProduceBarter,
+                     SeedBarter, ToolBarter])

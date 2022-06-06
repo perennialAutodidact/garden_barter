@@ -162,53 +162,6 @@ def login(request):
 
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
-@authentication_classes([SafeJWTAuthentication])
-@ensure_csrf_cookie
-def auth(request):
-    '''Return the user data for the user id contained in a valid access token'''
-    # create response object
-    response = Response()
-
-    # Get the access token from headers
-    access_token = request.headers.get('Authorization')
-
-    # if the access token doesn't exist, return 401
-    if access_token is None:
-        response.data = {'msg': ['No access token']}
-        response.status_code = status.HTTP_401_UNAUTHORIZED
-        return response
-
-    # remove 'token' prefix
-    access_token = access_token.split(' ')[1]
-
-    # decode access token payload
-    payload = jwt.decode(
-        access_token,
-        settings.SECRET_KEY,
-        algorithms=['HS256']
-    )
-
-    # get the user with the same id as the token's user_id
-    user = User.objects.filter(id=payload.get('user_id')).first()
-
-    if user is None:
-        response.data = {'msg': ['User not found']}
-        response.status_code = status.HTTP_401_UNAUTHORIZED
-        return response
-
-    if not user.is_active:
-        response.data = {'msg': ['User not active']}
-        response.status_code = status.HTTP_401_UNAUTHORIZED
-        return response
-
-    # serialize the User object and attach to response data
-    serialized_user = UserDetailSerializer(instance=user)
-    response.data = {'user': serialized_user.data}
-    return response
-
-
-@api_view(['GET'])
 @permission_classes([AllowAny])
 @ensure_csrf_cookie
 def extend_token(request):
@@ -419,3 +372,52 @@ def logout(request):
     }
 
     return response
+
+
+
+# @api_view(['GET'])
+# @permission_classes([IsAuthenticated])
+# @authentication_classes([SafeJWTAuthentication])
+# @ensure_csrf_cookie
+# def auth(request):
+#     '''Return the user data for the user id contained in a valid access token'''
+#     # create response object
+#     response = Response()
+
+#     # Get the access token from headers
+#     access_token = request.headers.get('Authorization')
+
+#     # if the access token doesn't exist, return 401
+#     if access_token is None:
+#         response.data = {'msg': ['No access token']}
+#         response.status_code = status.HTTP_401_UNAUTHORIZED
+#         return response
+
+#     # remove 'token' prefix
+#     access_token = access_token.split(' ')[1]
+
+#     # decode access token payload
+#     payload = jwt.decode(
+#         access_token,
+#         settings.SECRET_KEY,
+#         algorithms=['HS256']
+#     )
+
+#     # get the user with the same id as the token's user_id
+#     user = User.objects.filter(id=payload.get('user_id')).first()
+
+#     if user is None:
+#         response.data = {'msg': ['User not found']}
+#         response.status_code = status.HTTP_401_UNAUTHORIZED
+#         return response
+
+#     if not user.is_active:
+#         response.data = {'msg': ['User not active']}
+#         response.status_code = status.HTTP_401_UNAUTHORIZED
+#         return response
+
+#     # serialize the User object and attach to response data
+#     serialized_user = UserDetailSerializer(instance=user)
+#     response.data = {'user': serialized_user.data}
+#     return response
+

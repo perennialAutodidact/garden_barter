@@ -1,47 +1,24 @@
 from datetime import timedelta
 
 from django.contrib.auth import get_user_model
-from django.shortcuts import get_object_or_404
 from django.utils import timezone
-from django.views.decorators.csrf import ensure_csrf_cookie
 from rest_framework import status
 from rest_framework.decorators import (api_view, authentication_classes,
                                        permission_classes)
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-from barters_app.serializers import BarterSerializer
 from users_app.authentication import SafeJWTAuthentication
 
-from barters_app.models import (Barter, MaterialBarter, PlantBarter,
-                                ProduceBarter, SeedBarter, ToolBarter)
-from barters_app.serializers import (BarterSerializer,
-                                     MaterialBarterSerializer,
-                                     PlantBarterSerializer,
-                                     ProduceBarterSerializer,
-                                     SeedBarterSerializer,
-                                     ToolBarterSerializer)
+from barters_app.models import (Barter, SeedBarter, )
+from barters_app.serializers import BarterSerializer
 
 required_fields = [
     field.name 
-    for field in SeedBarter._meta.fields
+    for field in Barter._meta.fields
     if not field.null and field.name not in ['id', 'barter_ptr']
 ]
 
-BARTER_SERIALIZERS =  {
-    'seed_barter': SeedBarterSerializer,
-    'plant_barter': PlantBarterSerializer,
-    'produce_barter': ProduceBarterSerializer,
-    'material_barter': MaterialBarterSerializer,
-    'tool_barter': ToolBarterSerializer
-}
-
-BARTER_MODELS = {
-    'seed_barter': SeedBarter,
-    'plant_barter': PlantBarter,
-    'produce_barter': ProduceBarter,
-    'material_barter': MaterialBarter,
-    'tool_barter': ToolBarter
-}
+from barters_app.constants import BARTER_CONFIG
 
 
 @api_view(['POST'])
@@ -58,7 +35,7 @@ def create(request):
     if not form_data:
         error = f"Missing 'formData' object. Required form fields: {', '.join(required_fields)}"
     elif not barter_type:
-        error = f"Missing property 'barterType'. Choices are {', '.join([key for key in BARTER_SERIALIZERS.keys()])}"
+        error = f"Missing property 'barterType'. Choices are {', '.join([key for key in BARTER_CONFIG.keys()])}"
     elif not user_data:
         error = f"Missing 'userData' object."
     else:
@@ -76,7 +53,7 @@ def create(request):
         user = get_user_model().objects.get(id=user_data['id'])
 
         # get serializer based on the type of barter the user is creating
-        barter_serializer = BARTER_SERIALIZERS.get(barter_type)
+        barter_serializer = BARTER_CONFIG[barter_type]['serializer']
 
         barter_serializer = barter_serializer(data=form_data)
 
@@ -85,7 +62,7 @@ def create(request):
 
         if barter_serializer.is_valid():
             barter_serializer.save(creator=user)
-            response.status_code = status.HTTP_200_OK
+            response.status_code = status.HTTP_201_CREATED
             response.data = {
                 'message': 'test',
                 'barter': barter_serializer.data
@@ -101,25 +78,89 @@ def create(request):
 
 
 @api_view(['GET'])
-@authentication_classes([SafeJWTAuthentication])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def retrieve(request, barter_type=None, barter_id=None):
     response = Response()
 
+    barter_config = BARTER_CONFIG.get(barter_type)
+
+    # if a barter_type isn't provided,
+    # use the generic BarterSerializer
+    if barter_config:
+        barter_serializer = barter_config.get('serializer')
+    else:
+        barter_serializer = BarterSerializer
+
+    # get a queryset of barters based on the barter_type,
+    # while checking for various errors
+    error = ''
     if not barter_type and not barter_id:
         barters = Barter.objects.all()
     elif barter_type and not barter_id:
-        BarterModel = BARTER_MODELS[barter_type]
+        BarterModel = BARTER_CONFIG[barter_type]['model']
         barters = BarterModel.objects.all()
     elif barter_type and barter_id:
-        BarterModel = BARTER_MODELS[barter_type]
-        barter = get_object_or_404(BarterModel, id=barter_id)
+        BarterModel = BARTER_CONFIG[barter_type]['model']
+        barters = BarterModel.objects.filter(id=barter_id)
+        if len(barters) == 0:
+            error = f"No barter found of type '{barter_type}' with id {barter_id}."
 
-    barter_serializer = BarterSerializer(barters, many=True)
+    if error:
+        response.status_code = status.HTTP_400_BAD_REQUEST
+        response.data = {
+            'error': error
+        }
+    
+    else:
+        # apply query filters...
+        # 
 
+        barter_serializer = barter_serializer(barters, many=True)
 
-    response.data = {
-        'barters': barter_serializer.data
-    }
+        response.data = {
+            'barters': barter_serializer.data
+        }
 
     return response
+
+
+@api_view(['POST'])
+@authentication_classes([SafeJWTAuthentication])
+@permission_classes([IsAuthenticated])
+def update(request, barter_type, barter_id):
+    response = Response()
+
+    if barter_type not in BARTER_CONFIG:
+        response.status_code = status.HTTP_400_BAD_REQUEST
+        response.data = {
+            'error': f"Invalid 'barter_type': '{barter_type}'"
+        }
+    else:
+        BarterModel = BARTER_CONFIG[barter_type]['model']
+        BarterSerializer = BARTER_CONFIG[barter_type]['serializer']
+
+        barter = BarterModel.objects.filter(id=barter_id).first()
+
+        barter_serializer = BarterSerializer(barter, data=request.data, partial=True)
+
+        if barter_serializer.is_valid():
+            updated_barter = barter_serializer.save()
+
+            response.status_code = status.HTTP_202_ACCEPTED
+            response.data = {
+                'barter': updated_barter,
+            }
+        else:
+            response.status_code = status.HTTP_400_BAD_REQUEST
+            response.data = {
+                'error': barter_serializer.errors
+            }
+
+    return response
+
+
+@api_view(['POST'])
+@authentication_classes([SafeJWTAuthentication])
+@permission_classes([IsAuthenticated])
+def delete(request, barter_type, barter_id):
+    pass

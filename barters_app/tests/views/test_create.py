@@ -80,7 +80,7 @@ class TestBarterCreate(TestCase):
 
         response = views.create(request)
 
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         
 
 
@@ -160,6 +160,7 @@ class TestBarterCreate(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertTrue(response.data['error'].startswith("Desired trade missing."))
+        self.assertIn('error', response.data.keys())
         
     def test_create_seed_barter_fail_unenriched_request(self):
         request = self.factory.post(
@@ -186,7 +187,8 @@ class TestBarterCreate(TestCase):
             # missing access token
             request = enrich_request(request, self.valid_refresh_token, None, csrf_token)
             response = views.create(request)
-            
+        
+        with self.assertRaises(TypeError):
             # missing csrf_token
             request = enrich_request(request, self.valid_refresh_token, self.valid_access_token, None)
             response = views.create(request)
