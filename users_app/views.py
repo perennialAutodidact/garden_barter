@@ -206,7 +206,7 @@ def extend_token(request):
 
         # find the expired token in the database
         expired_tokens = RefreshToken.objects.filter(
-            token=refresh_token).first()
+            token=refresh_token)
 
         for token in expired_tokens:
             # delete the old token
@@ -259,6 +259,7 @@ def extend_token(request):
         httponly=True,  # to help prevent XSS attacks
         samesite='strict',  # to help prevent XSS attacks
         domain='localhost',  # change in production
+
         # secure=True # for https connections only
     )
 
@@ -365,7 +366,7 @@ def logout(request):
     refresh_token.delete()
 
     # delete the refresh cookie
-    response.delete_cookie('refreshtoken')
+    response.delete_cookie('refreshtoken', path='/')
 
     response.data = {
         'msg': ['Logout successful. See you next time!']
