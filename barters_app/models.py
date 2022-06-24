@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from django.utils import timezone
 
 QUANTITY_UNIT_CHOICES = [
+    ('NA', ''),
     ('PL', 'plant'),
     ('BC', 'bunch'),
     ('CT', 'count'),
@@ -38,8 +39,8 @@ class Barter(models.Model):
     
     date_expires   = models.DateTimeField(_('expires on'), null=True, blank=True)
 
-    quantity       = models.DecimalField(_('quantity'), decimal_places=2, max_digits=10 ,default=1.0)
-    quantity_units = models.CharField(_('units'), choices=QUANTITY_UNIT_CHOICES, default='CT', max_length=2)
+    quantity       = models.DecimalField(_('quantity'), decimal_places=2, max_digits=10 ,default=1.0, null=True)
+    quantity_units = models.CharField(_('units'), choices=QUANTITY_UNIT_CHOICES, default='NA', max_length=2)
     will_trade_for = models.CharField(_('will trade for'), max_length=255, blank=True)
     
     is_free        = models.BooleanField(_('free'), default=False)
