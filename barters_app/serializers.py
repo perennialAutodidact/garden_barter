@@ -64,7 +64,6 @@ class PlantBarterSerializer(BarterSerializer):
             'genus',
             'species',
             'common_name',
-            'date_planted'
         ]
 
 
@@ -75,7 +74,6 @@ class ProduceBarterSerializer(BarterSerializer):
             'genus',
             'species',
             'common_name',
-            'date_harvested'
         ]
 
 

@@ -59,7 +59,7 @@ def create(request):
 
         barter_serializer.initial_data['date_expires'] = timezone.now() + timedelta(days=14)
         barter_serializer.initial_data['barter_type'] = barter_type.split('_')[0]
-
+        
         if barter_serializer.is_valid():
             barter_serializer.save(creator=user)
             response.status_code = status.HTTP_201_CREATED
