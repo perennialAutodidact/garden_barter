@@ -22,14 +22,14 @@ from barters_app.constants import BARTER_CONFIG
 
 
 @api_view(['POST'])
-@authentication_classes([SafeJWTAuthentication])
 @permission_classes([IsAuthenticated])
 def create(request):
     response = Response()
 
+    user_data = request.data.get('user')
     form_data = request.data.get('form_data')
-    barter_type = request.data.get('barter_type')
-    user_data = request.data.get('user_data')
+    barter_type = form_data.get('barter_type') + '_barter'
+
 
     error = None
     if not form_data:
@@ -45,7 +45,7 @@ def create(request):
     if error:
         response.status_code = status.HTTP_400_BAD_REQUEST
         response.data = {
-            'error': error
+            'errors': [error]
         }
         return response
 
@@ -57,19 +57,19 @@ def create(request):
 
         barter_serializer = barter_serializer(data=form_data)
 
-        barter_serializer.initial_data['date_expires'] = timezone.now() + timedelta(days=7)
+        barter_serializer.initial_data['date_expires'] = timezone.now() + timedelta(days=14)
         barter_serializer.initial_data['barter_type'] = barter_type.split('_')[0]
 
         if barter_serializer.is_valid():
             barter_serializer.save(creator=user)
             response.status_code = status.HTTP_201_CREATED
             response.data = {
-                'message': 'test',
+                'message': 'Barter created successfully!',
                 'barter': barter_serializer.data
             }
         else:
             response.data = {
-                'error': barter_serializer.errors
+                'errors': barter_serializer.errors
             }
             response.status_code = status.HTTP_400_BAD_REQUEST
 
@@ -108,12 +108,13 @@ def retrieve(request, barter_type=None, barter_id=None):
     if error:
         response.status_code = status.HTTP_400_BAD_REQUEST
         response.data = {
-            'error': error
+            'errors': [error]
         }
     
     else:
-        # apply query filters...
+        # apply query filters / pagination...
         # 
+        barters=barters.order_by('-date_created')
 
         barter_serializer = barter_serializer(barters, many=True)
 
@@ -125,7 +126,6 @@ def retrieve(request, barter_type=None, barter_id=None):
 
 
 @api_view(['POST'])
-@authentication_classes([SafeJWTAuthentication])
 @permission_classes([IsAuthenticated])
 def update(request, barter_type, barter_id):
     response = Response()
@@ -133,7 +133,7 @@ def update(request, barter_type, barter_id):
     if barter_type not in BARTER_CONFIG:
         response.status_code = status.HTTP_400_BAD_REQUEST
         response.data = {
-            'error': f"Invalid 'barter_type': '{barter_type}'"
+            'errors': [f"Invalid 'barter_type': '{barter_type}'"]
         }
     else:
         BarterModel = BARTER_CONFIG[barter_type]['model']
@@ -153,14 +153,13 @@ def update(request, barter_type, barter_id):
         else:
             response.status_code = status.HTTP_400_BAD_REQUEST
             response.data = {
-                'error': barter_serializer.errors
+                'errors': barter_serializer.errors
             }
 
     return response
 
 
 @api_view(['POST'])
-@authentication_classes([SafeJWTAuthentication])
 @permission_classes([IsAuthenticated])
 def delete(request, barter_type, barter_id):
     pass
