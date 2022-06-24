@@ -1,6 +1,7 @@
 from pathlib import Path
 from corsheaders.defaults import default_headers
 import decouple
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,6 +28,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
 
     'pages_app',
@@ -131,25 +134,38 @@ AUTH_USER_MODEL = 'users_app.User'
 # define default authentication method in DRF
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'users_app.authentication.SafeJWTAuthentication'
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
 
     'DEFAULT_RENDERER_CLASSES': (
         'djangorestframework_camel_case.render.CamelCaseJSONRenderer',
         'djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer',
-        # Any other renders
     ),
 
     'DEFAULT_PARSER_CLASSES': (
-        # If you use MultiPartFormParser or FormParser, we also have a camel case version
         'djangorestframework_camel_case.parser.CamelCaseFormParser',
         'djangorestframework_camel_case.parser.CamelCaseMultiPartParser',
         'djangorestframework_camel_case.parser.CamelCaseJSONParser',
-        # Any other parsers
     ),
 }
 
-CSRF_USE_SESSIONS = False
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'AUTH_HEADER_TYPES': ('Bearer', ),
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken', ),
+}
+
+# The blacklist app also provides a management command, 
+# flushexpiredtokens, which will delete any tokens from 
+# the outstanding list and blacklist that have expired. 
+# You should set up a cron job on your server or hosting 
+# platform which runs this command daily.
+
+
+# CSRF_USE_SESSIONS = False
 
 # define refresh token lifetime
 REFRESH_TOKEN_EXPIRY = {
@@ -173,12 +189,12 @@ ACCESS_TOKEN_SECRET = decouple.config('DJANGO_ACCESS_TOKEN_SECRET')
 # to accept cookies via axios
 CORS_ALLOW_CREDENTIALS = True
 
-CSRF_HEADER_NAME = 'X-CSRFToken'
+# CSRF_HEADER_NAME = 'X-CSRFToken'
 
-CSRF_COOKIE_HTTPONLY = True
-SESSION_COOKIE_HTTPONLY = True
-CSRF_COOKIE_SAMESITE='None'
-CSRF_COOKIE_SECURE = True
+# CSRF_COOKIE_HTTPONLY = True
+# SESSION_COOKIE_HTTPONLY = True
+# CSRF_COOKIE_SAMESITE='None'
+# CSRF_COOKIE_SECURE = True
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
