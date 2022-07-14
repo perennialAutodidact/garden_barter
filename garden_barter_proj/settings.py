@@ -34,7 +34,8 @@ INSTALLED_APPS = [
 
     'pages_app',
     'users_app',
-    'barters_app'
+    'barters_app',
+    'messages_app',
 ]
 
 MIDDLEWARE = [
