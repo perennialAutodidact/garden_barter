@@ -20,6 +20,7 @@ class BarterTestCase(BarterModelBaseTestCase):
     def test_create_barter(self):
         with self.assertRaises(IntegrityError):
             Barter.objects.create(
+                # user cannot be blank
                 will_trade_for='tomatoes',
                 title='test_title',
                 postal_code='55555'
@@ -27,7 +28,7 @@ class BarterTestCase(BarterModelBaseTestCase):
         with self.assertRaises(ValueError):
             Barter.objects.create(
                 creator=self.user_1,
-                title='',
+                title='', # cannot be blank
                 will_trade_for='tomatoes',
                 postal_code='55555'
             )
@@ -35,7 +36,7 @@ class BarterTestCase(BarterModelBaseTestCase):
             Barter.objects.create(
                 creator=self.user_1,
                 title='test title',
-                will_trade_for='',
+                will_trade_for='', # cannot be blank
                 postal_code='55555'
             )
         with self.assertRaises(ValueError):
@@ -43,6 +44,6 @@ class BarterTestCase(BarterModelBaseTestCase):
                 creator=self.user_1,
                 title='test title',
                 will_trade_for='tomatoes',
-                postal_code=''
+                postal_code='' # cannot be blank
             )
         
