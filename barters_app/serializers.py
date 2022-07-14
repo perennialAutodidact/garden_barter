@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import *
 
 from users_app.serializers import UserDetailSerializer
-
+from .models import QUANTITY_UNIT_CHOICES
 QUANTITY_UNIT_CHOICES = dict(QUANTITY_UNIT_CHOICES)
 class BarterSerializer(serializers.ModelSerializer):
 
@@ -40,7 +40,6 @@ class BarterSerializer(serializers.ModelSerializer):
         return is_free
 
     def to_representation(self, instance):
-        """Convert `username` to lowercase."""
         ret = super().to_representation(instance)
         ret['quantity_units'] = QUANTITY_UNIT_CHOICES[ret['quantity_units']]
         return ret
