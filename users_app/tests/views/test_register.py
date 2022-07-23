@@ -65,7 +65,7 @@ class TestRegister(TestCase):
         response = views.register(request)
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(response.data, {'msg': ["Passwords don't match"]})
+        self.assertEqual(response.data, {'errors': ["Passwords don't match"]})
 
     def test_register_fail_email_exists(self):
         request = self.factory.post(
@@ -77,4 +77,4 @@ class TestRegister(TestCase):
         response = views.register(request)
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(response.data, {'msg': ["Email already registered"]})
+        self.assertEqual(response.data, {'errors': ["Email already registered"]})
