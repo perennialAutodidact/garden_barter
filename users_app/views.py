@@ -97,6 +97,14 @@ def get_user(request):
         user = request.user
         user_serializer = UserDetailSerializer(user)
 
+        if not user.is_active:    
+            return Response(
+                status=400,
+                data={
+                    'errors': ['User is not active.']
+                }
+            )
+
         return Response(
             status=200,
             data={
@@ -110,3 +118,25 @@ def get_user(request):
             data={'errors': ['Something went wrong fetching user data']}
         )
     
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def update(request):
+    user=request.user
+    user_serializer = UserUpdateSerializer(instance=user, data=request.data)
+
+    if user_serializer.is_valid():
+        user_serializer.save()
+        return Response(
+            status=status.HTTP_202_ACCEPTED,
+            data={
+                'user':user_serializer.data
+            }
+        )
+    
+    else: 
+        return Response(
+            status=400,
+            data={
+                'errors': user_serializer.errors
+            }
+        )
