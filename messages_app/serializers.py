@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Inbox, Message
+from .models import Inbox, Message, Conversation
 
 
 class MessageSerializer(serializers.ModelSerializer):
@@ -7,9 +7,16 @@ class MessageSerializer(serializers.ModelSerializer):
         model = Message
         fields = '__all__'
 
-class InboxSerializer(serializers.ModelSerializer):
+class ConversationSerializer(serializers.ModelSerializer):
     messages = MessageSerializer(many=True)
 
     class Meta:
+        model = Conversation
+        fields = '__all__'
+
+class InboxSerializer(serializers.ModelSerializer):
+    conversations = ConversationSerializer(many=True)
+
+    class Meta:
         model = Inbox
-        fields = ['user', 'messages']
+        fields = '__all__'
