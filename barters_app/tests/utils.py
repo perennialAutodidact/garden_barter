@@ -1,24 +1,16 @@
 from users_app.models import User
 from barters_app.models import *
+from rest_framework_simplejwt.tokens import RefreshToken
 
-def enrich_request(request, refresh_token, access_token, csrf_token):
-    '''Ammend COOKIES, META and header data to the given request'''
-
-    # if refresh_token and csrf_token:
-    request.COOKIES.update({
-        'refreshtoken': refresh_token,
-        'csrftoken': csrf_token
-    })
-    
-    # if csrf_token:
-    request.META.update({
-        'X-CSRFToken': csrf_token
-    })
+def enrich_request(request, access_token):
+    '''Ammend header data to the given request'''
 
     # if access_token:
     headers = {
-        'Authorization': f'Token {access_token}',
-    }
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {access_token}"
+          }
 
     request.headers = headers
 
