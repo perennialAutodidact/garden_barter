@@ -43,3 +43,9 @@ class UserDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         exclude = ['password', 'user_permissions', 'groups']
+
+
+class UserMessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ['id','email','username']
