@@ -94,7 +94,7 @@ def retrieve(request, barter_type=None, barter_id=None):
     if not barter_type and not barter_id:
         barters = Barter.objects.all()
     elif barter_type and not barter_id:
-        BarterModel = BARTER_CONFIG[barter_type]['model']
+        BarterModel = BARTER_CONFIG[barter_type+'_barter']['model']
         barters = BarterModel.objects.all()
     elif barter_type and barter_id:
         BarterModel = BARTER_CONFIG[barter_type]['model']
