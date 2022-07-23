@@ -6,6 +6,8 @@ class Inbox(models.Model):
     user = models.OneToOneField(get_user_model(), verbose_name=_(
         'user'), on_delete=models.CASCADE, related_name='inbox')
 
+    class Meta:
+        verbose_name_plural = 'inboxes'
 
 class Conversation(models.Model):
     inbox = models.ForeignKey(Inbox, on_delete=models.CASCADE, related_name='conversations')
