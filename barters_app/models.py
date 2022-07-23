@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 from datetime import datetime, timedelta
 from django.utils import timezone
-
+from messages_app.models import Conversation
 QUANTITY_UNIT_CHOICES = [
     ('NA', ''),
     ('PL', 'plant'),
@@ -52,6 +52,8 @@ class Barter(models.Model):
     cross_street_2 = models.CharField(_('cross street 2'), max_length=255, null=True, blank=True)
 
     barter_type = models.CharField(_('barter type'), max_length=10, choices=BARTER_TYPE_CHOICES, default='')
+
+    conversations = models.ManyToManyField(Conversation, related_name='barters')
 
     def save(self, *args, **kwargs):
             
