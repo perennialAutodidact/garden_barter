@@ -13,6 +13,7 @@ app_name = 'users_app'
 urlpatterns = [
     path('register/', views.register, name='register'),  # create user
     path('user/', views.get_user, name='get_user'), # get logged in user
+    path('user/update/', views.update, name='update'),
     # path('login/', views.login, name='login'), # login user
     # path('token/', views.extend_token, name='extend_token'), # request new access tokens
     # path('detail/<int:pk>/', views.user_detail, name='detail'),  # read/update
