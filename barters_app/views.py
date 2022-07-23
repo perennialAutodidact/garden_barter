@@ -7,33 +7,30 @@ from rest_framework.decorators import (api_view, authentication_classes,
                                        permission_classes)
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-from users_app.authentication import SafeJWTAuthentication
 
 from barters_app.models import (Barter, SeedBarter, )
 from barters_app.serializers import BarterSerializer
 
-required_fields = [
+from barters_app.constants import BARTER_CONFIG
+
+BARTER_REQUIRED_FIELDS = [
     field.name 
     for field in Barter._meta.fields
     if not field.null and field.name not in ['id', 'barter_ptr']
 ]
-
-from barters_app.constants import BARTER_CONFIG
-
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def create(request):
     response = Response()
 
-    user_data = request.data.get('user')
+    user_data = request.data.get('user_data')
     form_data = request.data.get('form_data')
-    barter_type = form_data.get('barter_type') + '_barter'
-
+    barter_type = request.data.get('barter_type')
 
     error = None
     if not form_data:
-        error = f"Missing 'formData' object. Required form fields: {', '.join(required_fields)}"
+        error = f"Missing 'formData' object. Required form fields: {', '.join(BARTER_REQUIRED_FIELDS)}"
     elif not barter_type:
         error = f"Missing property 'barterType'. Choices are {', '.join([key for key in BARTER_CONFIG.keys()])}"
     elif not user_data:
@@ -140,6 +137,7 @@ def update(request, barter_type, barter_id):
         BarterSerializer = BARTER_CONFIG[barter_type]['serializer']
 
         barter = BarterModel.objects.filter(id=barter_id).first()
+
 
         barter_serializer = BarterSerializer(barter, data=request.data, partial=True)
 
