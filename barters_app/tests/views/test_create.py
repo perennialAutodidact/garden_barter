@@ -2,19 +2,15 @@ from barters_app import views
 from barters_app.models import (MaterialBarter, PlantBarter, ProduceBarter,
                                 SeedBarter, ToolBarter)
 from django.contrib.auth import get_user_model
-from django.middleware.csrf import get_token as generate_csrf_token
 from django.test import TestCase
 from django.urls import reverse
-from barters_app.serializers import SeedBarterSerializer
-from garden_barter_proj import settings
 from rest_framework import status
-from rest_framework.exceptions import ErrorDetail
 from rest_framework.test import APIRequestFactory
 from users_app.serializers import UserDetailSerializer
-from users_app.utils import Token, generate_test_user
-from jwt.exceptions import DecodeError
+from users_app.utils import generate_test_user
 from barters_app.tests.utils import enrich_request
-
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.test import force_authenticate
 
 class TestBarterCreate(TestCase):
     def setUp(self):
@@ -27,9 +23,8 @@ class TestBarterCreate(TestCase):
             password='pass3412'
         )
 
-        self.valid_access_token = Token(self.user, 'access')
-    
-        self.invalid_access_token = Token(self.user, 'access', expiry={'days':-1})
+        self.access_token = str(RefreshToken.for_user(self.user).access_token)
+
 
         self.barter_data = {
             'title': 'test barter title',
@@ -74,16 +69,14 @@ class TestBarterCreate(TestCase):
                 'formData':self.seed_barter_data
             }
         )
-        csrf_token = generate_csrf_token(request)
 
-        request = enrich_request(request, self.valid_refresh_token, self.valid_access_token, csrf_token)
+        force_authenticate(request, user=self.user, token=self.access_token)
 
         response = views.create(request)
 
+
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         
-
-
         new_barter = SeedBarter.objects.get(title=self.seed_barter_data['title'])
         self.assertEqual(new_barter.title, self.seed_barter_data['title'])
         
@@ -95,14 +88,12 @@ class TestBarterCreate(TestCase):
                 # 'formData':self.seed_barter_data
             }
         )
-        csrf_token = generate_csrf_token(request)
-
-        request = enrich_request(request, self.valid_refresh_token, self.valid_access_token, csrf_token)
+        force_authenticate(request, user=self.user, token=self.access_token)
 
         response = views.create(request)
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertTrue(response.data['error'].startswith("Missing 'formData' object."))
+        self.assertTrue(response.data['errors'][0].startswith("Missing 'formData' object."))
 
     def test_create_seed_barter_fail_missing_barter_type(self):
         request = self.factory.post(
@@ -114,14 +105,12 @@ class TestBarterCreate(TestCase):
             },
             format='json'
         )
-        csrf_token = generate_csrf_token(request)
-
-        request = enrich_request(request, self.valid_refresh_token, self.valid_access_token, csrf_token)
+        force_authenticate(request, user=self.user, token=self.access_token)
 
         response = views.create(request)
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertTrue(response.data['error'].startswith("Missing property 'barterType'."))
+        self.assertTrue(response.data['errors'][0].startswith("Missing property 'barterType'."))
         
     def test_create_seed_barter_fail_missing_user_data(self):
         request = self.factory.post(
@@ -133,14 +122,11 @@ class TestBarterCreate(TestCase):
             },
             format='json'
         )
-        csrf_token = generate_csrf_token(request)
-
-        request = enrich_request(request, self.valid_refresh_token, self.valid_access_token, csrf_token)
+        force_authenticate(request, user=self.user, token=self.access_token)
 
         response = views.create(request)
-
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertTrue(response.data['error'].startswith("Missing 'userData' object."))
+        self.assertTrue(response.data['errors'][0].startswith("Missing 'userData' object."))
         
     def test_create_seed_barter_fail_missing_not_free_no_trade(self):
         request = self.factory.post(
@@ -152,44 +138,10 @@ class TestBarterCreate(TestCase):
             },
             format='json'
         )
-        csrf_token = generate_csrf_token(request)
-
-        request = enrich_request(request, self.valid_refresh_token, self.valid_access_token, csrf_token)
+        force_authenticate(request, user=self.user, token=self.access_token)
 
         response = views.create(request)
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertTrue(response.data['error'].startswith("Desired trade missing."))
-        self.assertIn('error', response.data.keys())
-        
-    def test_create_seed_barter_fail_unenriched_request(self):
-        request = self.factory.post(
-            reverse('barters_app:create'),
-            {
-                'userData': UserDetailSerializer(self.user).data,
-                'barterType': 'seed_barter',
-                'formData':self.seed_barter_data_not_free_no_trade
-            },
-            format='json'
-        )
-        csrf_token = generate_csrf_token(request)
-
-        # invalid access token
-        request = enrich_request(request, self.valid_refresh_token, self.invalid_access_token, csrf_token)
-
-        response = views.create(request)
-
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-        self.assertEqual(response.data['msg'], ErrorDetail('Access token expired', code='authentication_failed'))
-        
-
-        with self.assertRaises(DecodeError, msg='Not enough segments'):
-            # missing access token
-            request = enrich_request(request, self.valid_refresh_token, None, csrf_token)
-            response = views.create(request)
-        
-        with self.assertRaises(TypeError):
-            # missing csrf_token
-            request = enrich_request(request, self.valid_refresh_token, self.valid_access_token, None)
-            response = views.create(request)
-
+        self.assertTrue(response.data['errors'][0].startswith("Desired trade missing."))
+        self.assertIn('errors', response.data.keys())

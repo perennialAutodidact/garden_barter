@@ -1,3 +1,4 @@
+from weakref import ReferenceType
 from barters_app import views
 from barters_app.models import (Barter, MaterialBarter, PlantBarter, ProduceBarter,
                                 SeedBarter, ToolBarter)
@@ -13,9 +14,9 @@ from rest_framework.test import APIRequestFactory
 from users_app.serializers import UserDetailSerializer
 from users_app.utils import Token, generate_test_user
 from barters_app.tests.utils import enrich_request
-from users_app.models import RefreshToken
 from barters_app.constants import BARTER_CONFIG
-
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.test import force_authenticate
 
 class TestBarterRetrieve(TestCase):
     @classmethod
@@ -58,27 +59,9 @@ class TestBarterRetrieve(TestCase):
 
 
         self.user_1, self.user_2, self.user_3 = users
-
-        self.valid_refresh_token = RefreshToken.objects.create(
-            user=self.user_1,
-            token=Token(user, 'refresh').token
-        )
-        self.valid_access_token = Token(self.user_1, 'access')
-
-
-        self.invalid_refresh_token = RefreshToken.objects.create(
-            user=self.user_2,
-            token=Token(
-                self.user_2,
-                'refresh',
-                expiry={'days': -1}
-            ).token,
-        )
-        self.invalid_access_token = Token(
-            self.user_2,
-            'access',
-            expiry={'days': -1}
-        ).token
+        self.access_token_1 = str(RefreshToken.for_user(self.user_1).access_token)
+        self.access_token_2 = str(RefreshToken.for_user(self.user_2).access_token)
+        self.access_token_3 = str(RefreshToken.for_user(self.user_3).access_token)
 
         
     def generate_request(self, barter_type=None, barter_id=None):
@@ -99,13 +82,12 @@ class TestBarterRetrieve(TestCase):
     def test_retrieve_list_success(self):
         request = self.generate_request()
 
-        csrf_token = generate_csrf_token(request)
-        request = enrich_request(
-            request,
-            self.valid_refresh_token,
-            self.valid_access_token,
-            csrf_token
-        )
+        force_authenticate(request, self.user_1, token=self.access_token_1)
+
+        # request = enrich_request(
+        #     request,
+        #     self.access_token_1,
+        # )
 
         # get all barters in the test db
         response = views.retrieve(request)
@@ -135,25 +117,10 @@ class TestBarterRetrieve(TestCase):
     def test_retrieve_list_fail(self):
         request = self.generate_request()
 
-        csrf_token = generate_csrf_token(request)
-        request = enrich_request(
-            request,
-            self.valid_refresh_token,
-            self.invalid_access_token,
-            csrf_token
-        )
-
-        # expired access token
-        response = views.retrieve(request)
-        self.assertEqual(response.data['msg'], ErrorDetail(string='Access token expired', code='authentication_failed'))
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-
         # invalid barter_type
         request = enrich_request(
             request,
-            self.valid_refresh_token,
-            self.valid_access_token,
-            csrf_token
+            self.access_token_1,
         )
         with self.assertRaises(KeyError):
             response = views.retrieve(request, barter_type='floopydoop')
@@ -162,5 +129,5 @@ class TestBarterRetrieve(TestCase):
         invalid_barter_id = 999
         for barter_type in BARTER_CONFIG:
             response = views.retrieve(request, barter_type=barter_type, barter_id=invalid_barter_id)
-            self.assertEqual(response.data['error'], f"No barter found of type '{barter_type}' with id {invalid_barter_id}.")
+            self.assertEqual(response.data['errors'][0], f"No barter found of type '{barter_type}' with id {invalid_barter_id}.")
 
