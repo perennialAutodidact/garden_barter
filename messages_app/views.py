@@ -40,7 +40,7 @@ def create(request):
     if not barter_id or not barter_type:
         error = 'Missing barterId.' if not barter_id else 'Missing barterType.'
     else:
-        BarterModel = BARTER_CONFIG.get(barter_type+'_barter')['model']
+        BarterModel = BARTER_CONFIG.get(barter_type)['model']
         barter = BarterModel.objects.filter(id=barter_id).first()
 
         if not barter:
@@ -123,7 +123,7 @@ def find_conversation(request):
         if not barter_id:
             error = "Missing barterId."
         else:
-            BarterModel = BARTER_CONFIG.get(barter_type+'_barter')['model']
+            BarterModel = BARTER_CONFIG.get(barter_type)['model']
             barter = BarterModel.objects.filter(id=barter_id).first()
 
             if not barter:
