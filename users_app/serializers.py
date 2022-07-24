@@ -46,6 +46,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
 
 class UserMessageSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(label='Email address', max_length=254)
     class Meta:
         model = get_user_model()
         fields = ['id','email','username']
