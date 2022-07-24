@@ -65,7 +65,7 @@ class TestBarterCreate(TestCase):
         request = self.generate_request(
             {
                 'userData': UserDetailSerializer(self.user).data,
-                'barterType': 'seed_barter',
+                'barterType': 'seed',
                 'formData':self.seed_barter_data
             }
         )
