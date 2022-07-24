@@ -3,8 +3,8 @@ from .models import Inbox, Message, Conversation
 from users_app.serializers import UserMessageSerializer
 
 class MessageSerializer(serializers.ModelSerializer):
-    sender = UserMessageSerializer()
-    recipient = UserMessageSerializer()
+    sender = UserMessageSerializer(read_only=True)
+    recipient = UserMessageSerializer(read_only=True)
     
     class Meta:
         model = Message
