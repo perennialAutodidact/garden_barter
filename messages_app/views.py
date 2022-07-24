@@ -3,13 +3,11 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from rest_framework.response import Response
-
 from users_app.serializers import UserMessageSerializer
 from .serializers import InboxSerializer, MessageSerializer, ConversationSerializer
 from django.contrib.auth import get_user_model
 from barters_app.constants import BARTER_CONFIG
 from .models import Conversation
-from django.db.models import Q
 
 
 @api_view(['POST'])
