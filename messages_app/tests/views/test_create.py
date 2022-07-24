@@ -71,8 +71,6 @@ class TestBarterCreate(TestCase):
 
         response = views.create(request)
 
-        print(response.data)
-
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(self.recipient.inbox.conversations.count(), 1)
         
