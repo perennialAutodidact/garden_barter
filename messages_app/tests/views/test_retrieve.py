@@ -11,7 +11,7 @@ from rest_framework import status
 from messages_app.models import Conversation, Message
 
 
-class TestBarterCreate(TestCase):
+class TestRetrieveConversation(TestCase):
     def setUp(self):
         # Every test needs access to the request factory.
         self.factory = APIRequestFactory(enforce_csrf_checks=True)
@@ -116,7 +116,7 @@ class TestBarterCreate(TestCase):
         response = views.inbox(request)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['inbox']['user'], self.recipient.id)
+        self.assertEqual(response.data['inbox']['user']['id'], self.recipient.id)
     
     def test_inbox_retrieve_fail(self):
         pass
