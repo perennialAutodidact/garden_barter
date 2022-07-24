@@ -2,23 +2,23 @@ from .models import *
 from .serializers import *
 
 BARTER_CONFIG = {
-    'seed_barter': {
+    'seed': {
              'model': SeedBarter,
         'serializer': SeedBarterSerializer
     },
-    'plant_barter': {
+    'plant': {
              'model': PlantBarter,
         'serializer': PlantBarterSerializer
     },
-    'produce_barter': {
+    'produce': {
              'model': ProduceBarter,
         'serializer': ProduceBarterSerializer
     },
-    'material_barter': {
+    'material': {
              'model': MaterialBarter,
         'serializer': MaterialBarterSerializer
     },
-    'tool_barter': {
+    'tool': {
              'model': ToolBarter,
         'serializer': ToolBarterSerializer
     }
