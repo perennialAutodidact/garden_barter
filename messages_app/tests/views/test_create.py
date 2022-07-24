@@ -3,7 +3,7 @@ from django.test import TestCase
 from django.urls import reverse
 from rest_framework.test import APIRequestFactory
 from rest_framework_simplejwt.tokens import RefreshToken
-from users_app.serializers import UserDetailSerializer
+from users_app.serializers import UserDetailSerializer, UserMessageSerializer
 from barters_app.models import SeedBarter
 from rest_framework.test import force_authenticate
 from messages_app import views
@@ -61,6 +61,7 @@ class TestBarterCreate(TestCase):
         request = self.generate_request(
             {
                 'senderId': self.sender.id,
+                'recipientId': self.recipient.id,
                 'barterId': self.seed_barter.id,
                 'barterType': self.seed_barter.barter_type,
                 'formData': self.message_data
@@ -70,6 +71,8 @@ class TestBarterCreate(TestCase):
 
         response = views.create(request)
 
+        print(response.data)
+
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(self.recipient.inbox.conversations.count(), 1)
         
@@ -78,11 +81,12 @@ class TestBarterCreate(TestCase):
 
         self.assertEqual(self.seed_barter.conversations.count(), 1)
 
-    def test_message_create_fail(self):
+    def test_message_create_fail_missing_sender_id(self):
         # missing senderId
         request = self.generate_request(
             {
                 # 'senderId': self.sender.id,
+                'recipientId': self.recipient.id,
                 'barterId': self.seed_barter.id,
                 'barterType': self.seed_barter.barter_type,
                 'formData': self.message_data
@@ -95,11 +99,32 @@ class TestBarterCreate(TestCase):
         self.assertIn('errors', response.data.keys())
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data['errors'], ['Missing senderId.'])
+    
+    def test_message_create_fail_missing_recipient_id(self):
+        # missing recipientId
+        request = self.generate_request(
+            {
+                'senderId': self.sender.id,
+                # 'recipientId': self.recipient.id,
+                'barterId': self.seed_barter.id,
+                'barterType': self.seed_barter.barter_type,
+                'formData': self.message_data
+            }
+        )
+        force_authenticate(request, user=self.sender)
 
+        response = views.create(request)
+
+        self.assertIn('errors', response.data.keys())
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data['errors'], ['Missing recipientId.'])
+    
+    def test_message_create_fail_missing_sender_id(self):
         # missing barterId
         request = self.generate_request(
             {
                 'senderId': self.sender.id,
+                'recipientId': self.recipient.id,
                 # 'barterId': self.seed_barter.id,
                 'barterType': self.seed_barter.barter_type,
                 'formData': self.message_data
@@ -113,10 +138,12 @@ class TestBarterCreate(TestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data['errors'], ['Missing barterId.'])
 
+    def test_message_create_fail_missing_barter_type(self):
         # missing barterType
         request = self.generate_request(
             {
                 'senderId': self.sender.id,
+                'recipientId': self.recipient.id,
                 'barterId': self.seed_barter.id,
                 # 'barterType': self.seed_barter.barter_type,
                 'formData': self.message_data
@@ -129,11 +156,13 @@ class TestBarterCreate(TestCase):
         self.assertIn('errors', response.data.keys())
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data['errors'], ['Missing barterType.'])
-
+   
+    def test_message_create_fail_missing_form_data(self):
         # missing formData
         request = self.generate_request(
             {
                 'senderId': self.sender.id,
+                'recipientId': self.recipient.id,
                 'barterId': self.seed_barter.id,
                 'barterType': self.seed_barter.barter_type,
                 # 'formData': self.message_data
@@ -147,11 +176,13 @@ class TestBarterCreate(TestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data['errors'], ['Missing formData object.'])
 
+    def test_message_create_fail_sender_does_not_exist(self):
         # sender doesn't exist
         invalid_user_id = 999
         request = self.generate_request(
             {
                 'senderId': invalid_user_id,
+                'recipientId': self.recipient.id,
                 'barterId': self.seed_barter.id,
                 'barterType': self.seed_barter.barter_type,
                 'formData': self.message_data
@@ -164,13 +195,35 @@ class TestBarterCreate(TestCase):
         self.assertIn('errors', response.data.keys())
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data['errors'], [
-                         f'User with id {invalid_user_id} not found.'])
+                        f"Sender with id {invalid_user_id} not found."])
+    def test_message_create_fail_sender_does_not_exist(self):
+        # recipient doesn't exist
+        invalid_user_id = 999
+        request = self.generate_request(
+            {
+                'senderId': self.sender.id,
+                'recipientId': invalid_user_id,
+                'barterId': self.seed_barter.id,
+                'barterType': self.seed_barter.barter_type,
+                'formData': self.message_data
+            }
+        )
+        force_authenticate(request, user=self.sender)
 
+        response = views.create(request)
+
+        self.assertIn('errors', response.data.keys())
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data['errors'], [
+                        f"Recipient with id {invalid_user_id} not found."])
+
+    def test_message_create_fail_barter_does_not_exist(self):
         # barter doesn't exist
         invalid_barter_id = 999
         request = self.generate_request(
             {
                 'senderId': self.sender.id,
+                'recipientId': self.recipient.id,
                 'barterId': invalid_barter_id,
                 'barterType': self.seed_barter.barter_type,
                 'formData': self.message_data
