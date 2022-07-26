@@ -5,6 +5,8 @@ from django.contrib.auth import get_user_model
 from datetime import datetime, timedelta
 from django.utils import timezone
 from messages_app.models import Conversation
+from uuid import uuid4
+
 QUANTITY_UNIT_CHOICES = [
     ('NA', ''),
     ('PL', 'plant'),
@@ -28,7 +30,12 @@ BARTER_TYPE_CHOICES = [
 
 BARTER_LIFESPAN_DAYS = 7
 
+def get_uuid_hex():
+    return uuid4().hex
+
 class Barter(models.Model):
+    uuid           = models.CharField(_('uuid'), max_length=32, default=get_uuid_hex)
+
     creator        = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='barters')
 
     title          = models.CharField(_('title'), max_length=255, blank=False, default=None)
