@@ -11,7 +11,7 @@ class BarterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Barter
         fields = [
-            "id",
+            "uuid",
             "creator",
             "title",
             "description",
@@ -77,8 +77,14 @@ class ProduceBarterSerializer(BarterSerializer):
 
 
 class MaterialBarterSerializer(BarterSerializer):
-    model = MaterialBarter
+    class Meta:
+        model = MaterialBarter
+        fields = BarterSerializer.Meta.fields + []
 
 
 class ToolBarterSerializer(BarterSerializer):
-    model = ToolBarter
+    class Meta:
+        model = ToolBarter
+        fields = BarterSerializer.Meta.fields + [
+            'dimensions'
+        ]
