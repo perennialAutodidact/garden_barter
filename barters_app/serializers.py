@@ -27,7 +27,12 @@ class BarterSerializer(serializers.ModelSerializer):
             "is_free",
             "quantity",
             "quantity_units",
-            "barter_type"
+            "barter_type",
+            'genus',
+            'species',
+            'common_name',
+             'dimensions',
+             'year_packaged'
         ]
         read_only_fields = ["id", "creator", "date_created", "date_updated", "date_expires", "barter_ptr"]
 

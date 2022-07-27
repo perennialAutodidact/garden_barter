@@ -106,7 +106,7 @@ class TestBarterRetrieve(TestCase):
         # get single item from each model
         for barter_type in BARTER_CONFIG:
             BarterModel = BARTER_CONFIG[barter_type]['model']
-            barter_id = BarterModel.objects.first().id
+            barter_id = BarterModel.objects.first().uuid
             response = views.retrieve(request, barter_type=barter_type, barter_id=barter_id)
 
             self.assertEqual(len(response.data['barters']), 1)

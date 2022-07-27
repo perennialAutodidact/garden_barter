@@ -9,6 +9,8 @@ class Inbox(models.Model):
     class Meta:
         verbose_name_plural = 'inboxes'
 
+    def __str__(self):
+        return f"Inbox - {self.user.email}"
 class Conversation(models.Model):
     inbox = models.ForeignKey(Inbox, on_delete=models.CASCADE, related_name='conversations')
     barter_id = models.PositiveIntegerField(verbose_name=_('barter id'))

@@ -99,7 +99,6 @@ def retrieve(request, barter_type=None, barter_id=None):
     elif barter_type and barter_id:
         BarterModel = BARTER_CONFIG[barter_type]['model']
         barters = BarterModel.objects.filter(uuid=barter_id)
-        print(barters)
         if len(barters) == 0:
             error = f"No barter found of type '{barter_type}' with id {barter_id}."
 
