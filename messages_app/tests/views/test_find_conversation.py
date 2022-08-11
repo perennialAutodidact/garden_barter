@@ -89,7 +89,7 @@ class TestFindConversation(TestCase):
         request = self.generate_request(
             'messages_app:find_conversation',
             {
-                'barterId': self.seed_barter_1.id,
+                'barterId': self.seed_barter_1.uuid,
                 'barterType': self.seed_barter_1.barter_type,
                 'senderId': self.sender_1.id,
                 'recipientId': self.recipient_1.id
@@ -109,7 +109,7 @@ class TestFindConversation(TestCase):
         request = self.generate_request(
             'messages_app:find_conversation',
             {
-                'barterId': self.seed_barter_1.id,
+                'barterId': self.seed_barter_1.uuid,
                 'barterType': self.seed_barter_1.barter_type,
                 'senderId': self.sender_2.id,
                 'recipientId': self.recipient_2.id

@@ -45,9 +45,7 @@ class TestBarterCreate(TestCase):
             common_name='motherwort',
         )
 
-        self.message_data = {
-            "body": "Let's trade!"
-        }
+        self.message_body = "Let's trade!"
 
     def generate_request(self, data):
         '''return a Factory.post() request with the provided data'''
@@ -62,9 +60,9 @@ class TestBarterCreate(TestCase):
             {
                 'senderId': self.sender.id,
                 'recipientId': self.recipient.id,
-                'barterId': self.seed_barter.id,
+                'barterId': self.seed_barter.uuid,
                 'barterType': self.seed_barter.barter_type,
-                'formData': self.message_data
+                'messageBody': self.message_body
             }
         )
         force_authenticate(request, user=self.sender)
@@ -87,7 +85,7 @@ class TestBarterCreate(TestCase):
                 'recipientId': self.recipient.id,
                 'barterId': self.seed_barter.id,
                 'barterType': self.seed_barter.barter_type,
-                'formData': self.message_data
+                'messageBody': self.message_body
             }
         )
         force_authenticate(request, user=self.sender)
@@ -104,9 +102,9 @@ class TestBarterCreate(TestCase):
             {
                 'senderId': self.sender.id,
                 # 'recipientId': self.recipient.id,
-                'barterId': self.seed_barter.id,
+                'barterId': self.seed_barter.uuid,
                 'barterType': self.seed_barter.barter_type,
-                'formData': self.message_data
+                'messageBody': self.message_body
             }
         )
         force_authenticate(request, user=self.sender)
@@ -125,7 +123,7 @@ class TestBarterCreate(TestCase):
                 'recipientId': self.recipient.id,
                 # 'barterId': self.seed_barter.id,
                 'barterType': self.seed_barter.barter_type,
-                'formData': self.message_data
+                'messageBody': self.message_body
             }
         )
         force_authenticate(request, user=self.sender)
@@ -142,9 +140,9 @@ class TestBarterCreate(TestCase):
             {
                 'senderId': self.sender.id,
                 'recipientId': self.recipient.id,
-                'barterId': self.seed_barter.id,
+                'barterId': self.seed_barter.uuid,
                 # 'barterType': self.seed_barter.barter_type,
-                'formData': self.message_data
+                'messageBody': self.message_body
             }
         )
         force_authenticate(request, user=self.sender)
@@ -155,24 +153,6 @@ class TestBarterCreate(TestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data['errors'], ['Missing barterType.'])
    
-    def test_message_create_fail_missing_form_data(self):
-        # missing formData
-        request = self.generate_request(
-            {
-                'senderId': self.sender.id,
-                'recipientId': self.recipient.id,
-                'barterId': self.seed_barter.id,
-                'barterType': self.seed_barter.barter_type,
-                # 'formData': self.message_data
-            }
-        )
-        force_authenticate(request, user=self.sender)
-
-        response = views.create(request)
-
-        self.assertIn('errors', response.data.keys())
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(response.data['errors'], ['Missing formData object.'])
 
     def test_message_create_fail_sender_does_not_exist(self):
         # sender doesn't exist
@@ -181,9 +161,9 @@ class TestBarterCreate(TestCase):
             {
                 'senderId': invalid_user_id,
                 'recipientId': self.recipient.id,
-                'barterId': self.seed_barter.id,
+                'barterId': self.seed_barter.uuid,
                 'barterType': self.seed_barter.barter_type,
-                'formData': self.message_data
+                'messageBody': self.message_body
             }
         )
         force_authenticate(request, user=self.sender)
@@ -194,6 +174,7 @@ class TestBarterCreate(TestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data['errors'], [
                         f"Sender with id {invalid_user_id} not found."])
+
     def test_message_create_fail_sender_does_not_exist(self):
         # recipient doesn't exist
         invalid_user_id = 999
@@ -201,9 +182,9 @@ class TestBarterCreate(TestCase):
             {
                 'senderId': self.sender.id,
                 'recipientId': invalid_user_id,
-                'barterId': self.seed_barter.id,
+                'barterId': self.seed_barter.uuid,
                 'barterType': self.seed_barter.barter_type,
-                'formData': self.message_data
+                'messageBody': self.message_body
             }
         )
         force_authenticate(request, user=self.sender)
@@ -224,7 +205,7 @@ class TestBarterCreate(TestCase):
                 'recipientId': self.recipient.id,
                 'barterId': invalid_barter_id,
                 'barterType': self.seed_barter.barter_type,
-                'formData': self.message_data
+                'messageBody': self.message_body
             }
         )
         force_authenticate(request, user=self.sender)

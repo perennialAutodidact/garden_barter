@@ -14,11 +14,13 @@ from .models import Conversation
 @permission_classes([IsAuthenticated])
 def create(request):
     response = Response()
-    sender_id = request.data.get('sender_id')
-    recipient_id = request.data.get('recipient_id')
-    barter_id = request.data.get('barter_id')
-    barter_type = request.data.get('barter_type')
-    form_data = request.data.get('form_data')
+
+    form_data = request.data
+
+    sender_id = form_data.get('sender_id')
+    recipient_id = form_data.get('recipient_id')
+    barter_id = form_data.get('barter_id')
+    barter_type = form_data.get('barter_type')
 
     error = None
     if not sender_id:
@@ -41,7 +43,7 @@ def create(request):
         error = 'Missing barterId.' if not barter_id else 'Missing barterType.'
     else:
         BarterModel = BARTER_CONFIG.get(barter_type)['model']
-        barter = BarterModel.objects.filter(id=barter_id).first()
+        barter = BarterModel.objects.filter(uuid=barter_id).first()
 
         if not barter:
             error = f"No barter of type '{barter_type}' with id {barter_id}"
@@ -57,14 +59,14 @@ def create(request):
     else:
         conversation, created = Conversation.objects.get_or_create(
             inbox=barter.creator.inbox,
-            barter_id=barter_id,
+            barter_id=barter.id,
             barter_type=barter_type,
             sender=request.user,
             recipient=barter.creator
         )
 
         message_serializer = MessageSerializer(data={
-            'body': form_data.get('body'),
+            'body': form_data.get('message_body'),
             'conversation': conversation.id
         })
 
@@ -73,7 +75,8 @@ def create(request):
             barter.conversations.add(conversation)
             response.status_code = status.HTTP_201_CREATED
             response.data = {
-                'message': "Message created!"
+                'message': "Message created!",
+                'conversationId': conversation.id 
             }
 
         else:
@@ -124,7 +127,7 @@ def find_conversation(request):
             error = "Missing barterId."
         else:
             BarterModel = BARTER_CONFIG.get(barter_type)['model']
-            barter = BarterModel.objects.filter(id=barter_id).first()
+            barter = BarterModel.objects.filter(uuid=barter_id).first()
 
             if not barter:
                 error = f"No barter of type '{barter_type}' with id {barter_id}"
@@ -152,7 +155,6 @@ def find_conversation(request):
             'errors': [error]
         }
     else:
-
         conversation = barter.conversations.all().filter(
             sender__id__in=[sender_id],
             recipient__id__in=[recipient_id]

@@ -34,7 +34,7 @@ class BarterSerializer(serializers.ModelSerializer):
              'dimensions',
              'year_packaged'
         ]
-        read_only_fields = ["id", "creator", "date_created", "date_updated", "date_expires", "barter_ptr"]
+        read_only_fields = ["uuid", "creator", "date_created", "date_updated", "date_expires", "barter_ptr"]
 
     def validate_is_free(self, is_free):
         if is_free == None:
