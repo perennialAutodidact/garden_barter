@@ -5,8 +5,7 @@ from django.contrib.auth import get_user_model
 from datetime import datetime, timedelta
 from django.utils import timezone
 from messages_app.models import Conversation
-from uuid import uuid4
-
+from common.utils import get_uuid_hex
 from django.db import connection, reset_queries
 
 QUANTITY_UNIT_CHOICES = [
@@ -32,9 +31,6 @@ BARTER_TYPE_CHOICES = [
 
 BARTER_LIFESPAN_DAYS = 7
 
-
-def get_uuid_hex():
-    return uuid4().hex
 
 
 class AllBarters(models.Manager):
