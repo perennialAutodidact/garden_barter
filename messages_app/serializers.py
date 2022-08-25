@@ -17,7 +17,7 @@ class ConversationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Conversation
-        fields = ['id', 'messages', 'sender', 'recipient']
+        fields = ['uuid', 'messages', 'sender', 'recipient']
 
 class InboxSerializer(serializers.ModelSerializer):
     conversations = ConversationSerializer(many=True)
