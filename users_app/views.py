@@ -15,6 +15,7 @@ from rest_framework.decorators import (
     api_view, permission_classes,
     authentication_classes
 )
+from django.http.response import HttpResponse
 
 from .authentication import SafeJWTAuthentication
 from .models import User, RefreshToken
@@ -93,30 +94,43 @@ def register(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_user(request):
-    try:
-        user = request.user
-        user_serializer = UserDetailSerializer(user)
+    response = Response()
+    print(request.data)
+    # try:
+    user = request.user
+    user_serializer = UserDetailSerializer(user)
 
-        if not user.is_active:    
-            return Response(
-                status=400,
-                data={
-                    'errors': ['User is not active.']
-                }
-            )
-
+    if not user.is_active:    
         return Response(
-            status=200,
+            status=400,
             data={
-                'user': user_serializer.data
-            }
+                'errors': ['User is not active.']
+            },
         )
-
-    except:
-        return Response(
-            status=500,
-            data={'errors': ['Something went wrong fetching user data']}
-        )
+    response = Response() 
+    # response.set_cookie(
+    #     key='flimflam',
+    #     value=request.data.get('access', 'BLAHBLAHBLAH'),
+    #     max_age = 60 * 60 * 30,
+    #     expires = 60 * 60 * 30,
+    #     path="/api/",
+    #     domain=None,
+    #     secure=False,
+    #     httponly=True,
+    #     samesite="strict"
+    # )
+    response.data = {
+        'user': user_serializer.data
+    }
+    print(response.cookies)
+    return response
+        
+    # except Exception as E:
+        # print(E)
+        # return Response(
+            # status=500,
+            # data={'errors': ['Something went wrong fetching user data']}
+        # )
     
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
